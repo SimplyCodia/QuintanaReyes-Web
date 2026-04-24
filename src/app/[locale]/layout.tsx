@@ -19,14 +19,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   return (
-    <>
-      <script
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang = '${locale}';`,
-        }}
-      />
-      <ClientLayout locale={locale as Locale}>{children}</ClientLayout>
-    </>
+    <ClientLayout locale={locale as Locale}>{children}</ClientLayout>
   );
 }

@@ -74,8 +74,8 @@ export function AboutHistory({ locale }: AboutHistoryProps) {
               <div className="relative z-10 overflow-hidden aspect-[4/5] bg-[#E6E6E6]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"
-                  alt={t(locale, 'Oficinas de Quintana Reyes & Asociados', 'Quintana Reyes & Asociados offices')}
+                  src="/images/about-team.webp"
+                  alt={t(locale, 'Equipo de Quintana Reyes & Asociados', 'Quintana Reyes & Asociados team')}
                   className="w-full h-full object-cover"
                 />
                 {/* Overlay */}

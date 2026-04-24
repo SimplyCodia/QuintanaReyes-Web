@@ -12,27 +12,21 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
-  if (locale !== 'en') notFound();
-  return generatePageMetadata('about', 'en', '/en/about');
-}
-
-export function generateStaticParams() {
-  return [{ locale: 'en' }];
+  if (!locales.includes(locale as Locale)) notFound();
+  return generatePageMetadata('about', locale as Locale, `/${locale}/about`);
 }
 
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
-
-  if (locale !== 'en') {
-    notFound();
-  }
+  if (!locales.includes(locale as Locale)) notFound();
+  const lang = locale as Locale;
 
   return (
     <div className="pt-20">
-      <AboutHero locale="en" />
-      <AboutValues locale="en" />
-      <AboutHistory locale="en" />
-      <TeamSection locale="en" />
+      <AboutHero locale={lang} />
+      <AboutValues locale={lang} />
+      <AboutHistory locale={lang} />
+      <TeamSection locale={lang} />
     </div>
   );
 }

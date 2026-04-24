@@ -9,24 +9,17 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
-  if (locale !== 'es') notFound();
-  return generatePageMetadata('contact', 'es', '/es/contacto');
-}
-
-export function generateStaticParams() {
-  return [{ locale: 'es' }];
+  if (!locales.includes(locale as Locale)) notFound();
+  return generatePageMetadata('contact', locale as Locale, `/${locale}/contacto`);
 }
 
 export default async function ContactoPage({ params }: Props) {
   const { locale } = await params;
-
-  if (locale !== 'es') {
-    notFound();
-  }
+  if (!locales.includes(locale as Locale)) notFound();
 
   return (
     <div className="pt-20">
-      <ContactSection locale="es" />
+      <ContactSection locale={locale as Locale} />
     </div>
   );
 }

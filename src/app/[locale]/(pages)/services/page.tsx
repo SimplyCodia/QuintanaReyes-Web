@@ -9,24 +9,17 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
-  if (locale !== 'en') notFound();
-  return generatePageMetadata('services', 'en', '/en/services');
-}
-
-export function generateStaticParams() {
-  return [{ locale: 'en' }];
+  if (!locales.includes(locale as Locale)) notFound();
+  return generatePageMetadata('services', locale as Locale, `/${locale}/services`);
 }
 
 export default async function ServicesPage({ params }: Props) {
   const { locale } = await params;
-
-  if (locale !== 'en') {
-    notFound();
-  }
+  if (!locales.includes(locale as Locale)) notFound();
 
   return (
     <div className="pt-20">
-      <ServicesAccordion locale="en" />
+      <ServicesAccordion locale={locale as Locale} />
     </div>
   );
 }
