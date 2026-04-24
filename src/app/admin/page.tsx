@@ -21,7 +21,7 @@ export default function AdminPage() {
   return (
     <div className="flex">
       <Sidebar />
-      <main className="ml-64 flex-1 p-8">
+      <main className="ml-0 flex-1 p-8">
         <Dashboard />
       </main>
     </div>

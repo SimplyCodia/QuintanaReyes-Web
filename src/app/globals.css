@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
-/* Tailwind v4 + MUI CSS Layer integration */
-/* MUI uses @layer mui (via enableCssLayer), Tailwind utilities override MUI */
-@layer theme, base, mui, components, utilities;
-
-@import "tailwindcss" layer(base);
+@import "tailwindcss";
 
 @theme inline {
   /* Brand colors */

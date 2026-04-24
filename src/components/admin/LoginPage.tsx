@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Scale } from 'lucide-react';
 import {
   TextField,
   Button,
@@ -65,31 +64,12 @@ export function LoginPage() {
             mb: 4,
           }}
         >
-          <Box
-            sx={{
-              width: 56,
-              height: 56,
-              bgcolor: '#C9A449',
-              borderRadius: 3,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mb: 2,
-            }}
-          >
-            <Scale size={28} color="#0E0E0E" />
-          </Box>
-          <Typography
-            variant="h6"
-            sx={{
-              color: '#E6E6E6',
-              fontWeight: 600,
-              textAlign: 'center',
-              lineHeight: 1.3,
-            }}
-          >
-            Quintana Reyes &amp; Asociados
-          </Typography>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/logo/logo_qr_asociados-dorado.webp"
+            alt="Quintana Reyes & Asociados"
+            style={{ height: 80, width: 'auto', objectFit: 'contain', marginBottom: 8 }}
+          />
           <Typography variant="body2" sx={{ color: '#6B6B6B', mt: 0.5 }}>
             Panel de Administración
           </Typography>
@@ -160,12 +140,8 @@ export function LoginPage() {
           </Button>
         </Paper>
 
-        <Typography
-          variant="caption"
-          sx={{ color: '#6B6B6B', display: 'block', textAlign: 'center', mt: 3 }}
-        >
-          &copy; {new Date().getFullYear()} Quintana Reyes &amp; Asociados
-        </Typography>
+        {/* spacer */}
+        <Box sx={{ mt: 3 }} />
       </Box>
     </Box>
   );

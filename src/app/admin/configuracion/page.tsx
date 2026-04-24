@@ -22,7 +22,7 @@ export default function AdminConfiguracionPage() {
     return (
       <div className="flex">
         <Sidebar />
-        <main className="ml-64 flex-1 p-8 flex items-center justify-center">
+        <main className="ml-0 flex-1 p-8 flex items-center justify-center">
           <div className="text-center">
             <p className="text-lg font-semibold text-[#1A1A1A]">Acceso restringido</p>
             <p className="text-[#6B6B6B] text-sm mt-1">
@@ -37,7 +37,7 @@ export default function AdminConfiguracionPage() {
   return (
     <div className="flex">
       <Sidebar />
-      <main className="ml-64 flex-1 p-8">
+      <main className="ml-0 flex-1 p-8">
         <ConfiguracionPage />
       </main>
     </div>

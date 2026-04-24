@@ -19,12 +19,10 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Box,
   Avatar,
   Divider,
-  IconButton,
-  Tooltip,
   Typography,
-  Box,
 } from '@mui/material';
 import { useAuth } from '@/lib/admin/auth';
 
@@ -73,174 +71,138 @@ export function Sidebar() {
       }}
     >
       {/* Logo */}
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1.5,
-          px: 3,
-          py: 2.5,
-          borderBottom: '1px solid #1C1C1C',
-          flexShrink: 0,
-        }}
-      >
-        <Box
-          sx={{
-            width: 36,
-            height: 36,
-            bgcolor: '#C9A449',
-            borderRadius: 1.5,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
-          <Scale size={18} color="#0E0E0E" />
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, px: 2.5, py: 2.5, borderBottom: '1px solid #1C1C1C', flexShrink: 0 }}>
+        <Box sx={{ width: 36, height: 36, bgcolor: '#C9A449', borderRadius: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <Scale size={20} color="#0E0E0E" />
         </Box>
-        <Box sx={{ minWidth: 0 }}>
-          <Typography
-            variant="caption"
-            sx={{
-              color: '#E6E6E6',
-              fontWeight: 600,
-              fontSize: '0.7rem',
-              lineHeight: 1.3,
-              display: 'block',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
+        <Box>
+          <Typography variant="caption" sx={{ color: '#FAFAF7', fontWeight: 700, fontSize: '0.8rem', lineHeight: 1.2, display: 'block', letterSpacing: '0.02em' }}>
             Quintana Reyes
           </Typography>
-          <Typography
-            variant="caption"
-            sx={{
-              color: '#6B6B6B',
-              fontSize: '0.625rem',
-              lineHeight: 1.3,
-              display: 'block',
-            }}
-          >
-            &amp; Asociados
+          <Typography variant="caption" sx={{ color: '#6B6B6B', fontSize: '0.65rem', lineHeight: 1.2, display: 'block' }}>
+            Abogados &amp; Asociados
           </Typography>
         </Box>
       </Box>
 
       {/* Navigation */}
-      <List sx={{ flex: 1, px: 1, py: 1, overflowY: 'auto' }} disablePadding>
+      <List sx={{ flex: 1, px: 1.5, py: 2, overflowY: 'auto' }} disablePadding>
         {visibleItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.href);
           return (
-            <ListItem key={item.href} disablePadding sx={{ mb: 0.25 }}>
-              <Tooltip title={item.label} placement="right" arrow>
-                <ListItemButton
-                  component={Link}
-                  href={item.href}
-                  selected={active}
+            <ListItem key={item.href} disablePadding sx={{ mb: 0.5 }}>
+              <ListItemButton
+                component={Link}
+                href={item.href}
+                selected={active}
+                sx={{
+                  borderRadius: 1.5,
+                  py: 1.25,
+                  px: 2,
+                  '&.Mui-selected': {
+                    bgcolor: '#C9A449',
+                    color: '#0E0E0E',
+                    '&:hover': { bgcolor: '#B8933A' },
+                    '& .MuiListItemIcon-root': { color: '#0E0E0E' },
+                    '& .MuiListItemText-primary': { color: '#0E0E0E', fontWeight: 600 },
+                  },
+                  '&:not(.Mui-selected)': {
+                    color: '#E6E6E6',
+                    '&:hover': { bgcolor: '#1C1C1C' },
+                    '& .MuiListItemIcon-root': { color: '#9A9A9A' },
+                    '& .MuiListItemText-primary': { color: '#E6E6E6' },
+                  },
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 36 }}>
+                  <Icon size={18} />
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.label}
                   sx={{
-                    borderRadius: 1.5,
-                    py: 1,
-                    px: 1.5,
-                    '&.Mui-selected': {
-                      bgcolor: '#C9A449',
-                      color: '#0E0E0E',
-                      '&:hover': { bgcolor: '#B8933A' },
-                      '& .MuiListItemIcon-root': { color: '#0E0E0E' },
-                    },
-                    '&:not(.Mui-selected)': {
-                      color: '#E6E6E6',
-                      '&:hover': { bgcolor: '#1C1C1C' },
-                      '& .MuiListItemIcon-root': { color: '#E6E6E6' },
+                    '& .MuiListItemText-primary': {
+                      fontSize: '0.875rem',
+                      fontWeight: 500,
                     },
                   }}
-                >
-                  <ListItemIcon sx={{ minWidth: 32 }}>
-                    <Icon size={16} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.label}
-                    sx={{ '& .MuiListItemText-primary': { fontSize: '0.8125rem', fontWeight: 500 } }}
-                  />
-                </ListItemButton>
-              </Tooltip>
+                />
+              </ListItemButton>
             </ListItem>
           );
         })}
       </List>
 
       {/* User section */}
-      <Box sx={{ borderTop: '1px solid #1C1C1C', p: 1, flexShrink: 0 }}>
-        <Tooltip title="Mi perfil" placement="right" arrow>
-          <ListItemButton
-            component={Link}
-            href="/admin/perfil"
-            selected={pathname === '/admin/perfil'}
-            sx={{
-              borderRadius: 1.5,
-              py: 1,
-              px: 1.5,
-              mb: 0.25,
-              '&.Mui-selected': {
-                bgcolor: '#C9A449',
-                '&:hover': { bgcolor: '#B8933A' },
-                '& .MuiListItemText-primary': { color: '#0E0E0E' },
-                '& .MuiListItemText-secondary': { color: '#0E0E0E99' },
-              },
-              '&:not(.Mui-selected)': {
-                '&:hover': { bgcolor: '#1C1C1C' },
-                '& .MuiListItemText-primary': { color: '#E6E6E6' },
-                '& .MuiListItemText-secondary': { color: '#6B6B6B' },
-              },
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 36 }}>
-              <Avatar
-                sx={{
-                  width: 28,
-                  height: 28,
-                  bgcolor: '#C9A449',
-                  color: '#0E0E0E',
-                  fontSize: '0.7rem',
-                  fontWeight: 700,
-                }}
-              >
-                {user?.nombre?.charAt(0).toUpperCase() ?? <User size={12} />}
-              </Avatar>
-            </ListItemIcon>
-            <ListItemText
-              primary={user?.nombre ?? 'Usuario'}
-              secondary={user?.rol === 'ADMIN' ? 'Administrador' : 'Abogado'}
-              sx={{
-                '& .MuiListItemText-primary': { fontSize: '0.75rem', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
-                '& .MuiListItemText-secondary': { fontSize: '0.625rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
-              }}
-            />
-          </ListItemButton>
-        </Tooltip>
-
-        <Tooltip title="Cerrar sesión" placement="right" arrow>
-          <ListItemButton
-            onClick={logout}
-            sx={{
-              borderRadius: 1.5,
-              py: 1,
-              px: 1.5,
-              color: '#E6E6E6',
+      <Divider sx={{ borderColor: '#1C1C1C' }} />
+      <Box sx={{ p: 1.5 }}>
+        <ListItemButton
+          component={Link}
+          href="/admin/perfil"
+          selected={pathname === '/admin/perfil'}
+          sx={{
+            borderRadius: 1.5,
+            py: 1.25,
+            px: 2,
+            mb: 0.5,
+            '&.Mui-selected': {
+              bgcolor: '#C9A449',
+              '&:hover': { bgcolor: '#B8933A' },
+              '& .MuiListItemText-primary': { color: '#0E0E0E' },
+              '& .MuiListItemText-secondary': { color: '#0E0E0E99' },
+            },
+            '&:not(.Mui-selected)': {
               '&:hover': { bgcolor: '#1C1C1C' },
+              '& .MuiListItemText-primary': { color: '#E6E6E6' },
+              '& .MuiListItemText-secondary': { color: '#6B6B6B' },
+            },
+          }}
+        >
+          <ListItemIcon sx={{ minWidth: 40 }}>
+            <Avatar
+              sx={{
+                width: 30,
+                height: 30,
+                bgcolor: pathname === '/admin/perfil' ? '#0E0E0E' : '#C9A449',
+                color: pathname === '/admin/perfil' ? '#C9A449' : '#0E0E0E',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+              }}
+            >
+              {user?.nombre?.charAt(0).toUpperCase() ?? <User size={14} />}
+            </Avatar>
+          </ListItemIcon>
+          <ListItemText
+            primary={user?.nombre ?? 'Usuario'}
+            secondary={user?.rol === 'ADMIN' ? 'Administrador' : 'Abogado'}
+            sx={{
+              '& .MuiListItemText-primary': { fontSize: '0.8rem', fontWeight: 600 },
+              '& .MuiListItemText-secondary': { fontSize: '0.65rem' },
             }}
-          >
-            <ListItemIcon sx={{ minWidth: 32, color: '#E6E6E6' }}>
-              <LogOut size={16} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Cerrar sesión"
-              sx={{ '& .MuiListItemText-primary': { fontSize: '0.8125rem', fontWeight: 500 } }}
-            />
-          </ListItemButton>
-        </Tooltip>
+          />
+        </ListItemButton>
+
+        <ListItemButton
+          onClick={logout}
+          sx={{
+            borderRadius: 1.5,
+            py: 1,
+            px: 2,
+            '&:hover': { bgcolor: '#1C1C1C' },
+            '& .MuiListItemIcon-root': { color: '#9A9A9A' },
+            '& .MuiListItemText-primary': { color: '#9A9A9A' },
+            '&:hover .MuiListItemIcon-root': { color: '#E84855' },
+            '&:hover .MuiListItemText-primary': { color: '#E84855' },
+          }}
+        >
+          <ListItemIcon sx={{ minWidth: 36 }}>
+            <LogOut size={18} />
+          </ListItemIcon>
+          <ListItemText
+            primary="Cerrar sesión"
+            sx={{ '& .MuiListItemText-primary': { fontSize: '0.8rem', fontWeight: 500 } }}
+          />
+        </ListItemButton>
       </Box>
     </Drawer>
   );

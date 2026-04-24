@@ -148,7 +148,7 @@ describe('generatePageMetadata()', () => {
       const metadata = generatePageMetadata('contact', 'es', '/es/contacto');
       const images = metadata.openGraph?.images as Array<{ url: string }>;
       expect(images).toBeDefined();
-      expect(images[0].url).toBe(`${BASE_URL}/images/og-image.jpg`);
+      expect(images[0].url).toBe(`${BASE_URL}/images/og-image.png`);
     });
   });
 
@@ -172,7 +172,7 @@ describe('generatePageMetadata()', () => {
       const metadata = generatePageMetadata('contact', 'en', '/en/contact');
       const images = metadata.twitter?.images as string[];
       expect(images).toBeDefined();
-      expect(images[0]).toBe(`${BASE_URL}/images/og-image.jpg`);
+      expect(images[0]).toBe(`${BASE_URL}/images/og-image.png`);
     });
   });
 });

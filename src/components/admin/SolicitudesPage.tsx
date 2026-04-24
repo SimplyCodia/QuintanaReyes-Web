@@ -253,6 +253,9 @@ export function SolicitudesPage() {
               <Table size="medium">
                 <TableHead>
                   <TableRow sx={{ bgcolor: '#FAFAF7' }}>
+                    <TableCell sx={{ color: '#6B6B6B', fontSize: '0.6875rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', width: 90 }}>
+                      Ref.
+                    </TableCell>
                     <TableCell sx={{ color: '#6B6B6B', fontSize: '0.6875rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Cliente
                     </TableCell>
@@ -277,10 +280,14 @@ export function SolicitudesPage() {
                       key={s.id}
                       sx={{
                         '&:hover': { bgcolor: '#FAFAF7' },
-                        '&:hover .ver-detalle-btn': { opacity: 1 },
                         transition: 'background-color 0.15s',
                       }}
                     >
+                      <TableCell>
+                        <Typography variant="body2" sx={{ fontWeight: 600, color: '#C9A449', fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                          QR-{String(s.id).padStart(5, '0')}
+                        </Typography>
+                      </TableCell>
                       <TableCell>
                         <Typography variant="body2" sx={{ fontWeight: 500, color: '#1A1A1A' }}>
                           {s.nombre}
@@ -329,9 +336,7 @@ export function SolicitudesPage() {
                             color: '#C9A449',
                             fontSize: '0.75rem',
                             textTransform: 'none',
-                            fontWeight: 500,
-                            opacity: 0,
-                            transition: 'opacity 0.15s',
+                            fontWeight: 600,
                             whiteSpace: 'nowrap',
                             '&:hover': { bgcolor: 'rgba(201,164,73,0.08)' },
                           }}

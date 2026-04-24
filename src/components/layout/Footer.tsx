@@ -29,7 +29,7 @@ export function Footer({ locale }: FooterProps) {
               <img
                 src="/images/logo/logo_qr_asociados-dorado.webp"
                 alt="Quintana Reyes & Asociados"
-                className="h-10 w-auto object-contain"
+                className="h-16 w-auto object-contain"
               />
             </Link>
             <p className="font-sans text-sm text-white/60 leading-relaxed mb-6">
@@ -134,14 +134,16 @@ export function Footer({ locale }: FooterProps) {
                   )}
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#C9A449] flex-shrink-0" />
-                <a
-                  href="tel:+50769491006"
-                  className="font-sans text-sm text-white/60 hover:text-[#C9A449] transition-colors duration-200"
-                >
-                  +507 6949-1006
-                </a>
+              <li className="flex items-start gap-3">
+                <Phone className="w-4 h-4 text-[#C9A449] flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-sans text-sm text-white/60">
+                    <a href="tel:+50762810554" className="hover:text-[#C9A449] transition-colors">+507 6281-0554</a>
+                    {' | '}
+                    <a href="tel:+50766069100" className="hover:text-[#C9A449] transition-colors">+507 6606-9100</a>
+                  </p>
+                  <p className="font-sans text-sm text-white/40">309-0166 EXT 323</p>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-[#C9A449] flex-shrink-0" />

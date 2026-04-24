@@ -113,7 +113,7 @@ describe('Footer', () => {
   describe('contact info', () => {
     it('renders phone number', () => {
       render(<Footer locale="es" />);
-      expect(screen.getByText('+507 6949-1006')).toBeInTheDocument();
+      expect(screen.getByText('+507 6281-0554')).toBeInTheDocument();
     });
 
     it('renders email address', () => {
@@ -145,8 +145,8 @@ describe('Footer', () => {
 
     it('phone link has correct tel href', () => {
       render(<Footer locale="es" />);
-      const phoneLink = screen.getByText('+507 6949-1006').closest('a');
-      expect(phoneLink).toHaveAttribute('href', 'tel:+50769491006');
+      const phoneLink = screen.getByText('+507 6281-0554').closest('a');
+      expect(phoneLink).toHaveAttribute('href', 'tel:+50762810554');
     });
 
     it('email link has correct mailto href', () => {

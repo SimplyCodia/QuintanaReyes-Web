@@ -71,7 +71,7 @@ export function AboutHistory({ locale }: AboutHistoryProps) {
               {/* Decorative border offset */}
               <div className="absolute -top-4 -right-4 w-full h-full border border-[#C9A449]/30 z-0" />
               {/* Image container */}
-              <div className="relative z-10 overflow-hidden aspect-[4/5] bg-[#E6E6E6]">
+              <div className="relative z-10 overflow-hidden aspect-[3/2] bg-[#E6E6E6]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/images/about-team.webp"
