@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { TikTokIcon, FacebookIcon, InstagramIcon } from '@/components/ui/SvgIcons';
 import { navLinks } from '@/data/navigation';
@@ -26,11 +25,10 @@ export function Footer({ locale }: FooterProps) {
               className="inline-block mb-6"
               aria-label="Quintana Reyes & Asociados"
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/images/logo/logo_qr_asociados-dorado.webp"
                 alt="Quintana Reyes & Asociados"
-                width={150}
-                height={45}
                 className="h-10 w-auto object-contain"
               />
             </Link>

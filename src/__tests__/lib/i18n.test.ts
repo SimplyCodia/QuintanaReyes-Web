@@ -73,16 +73,16 @@ describe('getAlternateUrl()', () => {
     expect(getAlternateUrl('/en', 'en')).toBe('/es');
   });
 
-  it('returns /es/contacto when switching from /en/contact', () => {
-    expect(getAlternateUrl('/en/contact', 'en')).toBe('/es/contacto');
+  it('returns /es#contacto when switching from /en/contact', () => {
+    expect(getAlternateUrl('/en/contact', 'en')).toBe('/es#contacto');
   });
 
   it('returns /en/services when switching from /es/servicios', () => {
     expect(getAlternateUrl('/es/servicios', 'es')).toBe('/en/services');
   });
 
-  it('returns /en/contact when switching from /es/contacto', () => {
-    expect(getAlternateUrl('/es/contacto', 'es')).toBe('/en/contact');
+  it('returns /en#contacto when switching from /es/contacto', () => {
+    expect(getAlternateUrl('/es/contacto', 'es')).toBe('/en#contacto');
   });
 
   it('returns /es/nosotros when switching from /en/about', () => {

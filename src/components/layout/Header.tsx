@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Globe, Menu } from 'lucide-react';
 import { navLinks } from '@/data/navigation';
 import { Locale, t, getAlternateUrl } from '@/lib/i18n';
@@ -48,7 +47,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
 
   const transparent = isHomePage && !scrolled;
   const alternateUrl = getAlternateUrl(currentPath, locale);
-  const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
+  const contactHref = locale === 'es' ? '/es#contacto' : '/en#contacto';
 
   return (
     <>
@@ -67,25 +66,14 @@ export function Header({ locale, currentPath }: HeaderProps) {
               className="flex-shrink-0 flex items-center"
               aria-label={t(locale, 'Quintana Reyes & Asociados — Inicio', 'Quintana Reyes & Asociados — Home')}
             >
-              {transparent ? (
-                <Image
-                  src="/images/logo/logo_qr_asociados-dorado.webp"
-                  alt="Quintana Reyes & Asociados"
-                  width={160}
-                  height={48}
-                  className="h-10 w-auto object-contain"
-                  priority
-                />
-              ) : (
-                <Image
-                  src="/images/logo/logo_QR_asociados-black.svg"
-                  alt="Quintana Reyes & Asociados"
-                  width={160}
-                  height={48}
-                  className="h-10 w-auto object-contain"
-                  priority
-                />
-              )}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/logo/logo_qr_asociados-dorado.webp"
+                alt="Quintana Reyes & Asociados"
+                className={`h-10 w-auto object-contain transition-all duration-500 ${
+                  transparent ? '' : 'brightness-0'
+                }`}
+              />
             </Link>
 
             {/* Desktop nav */}

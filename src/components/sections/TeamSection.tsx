@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { SectionEyebrow } from '@/components/ui/SectionEyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
@@ -42,15 +41,13 @@ export function TeamSection({ locale }: TeamSectionProps) {
               <div className="group">
                 {/* Photo */}
                 <div className="relative overflow-hidden mb-5 aspect-[3/4] bg-[#E6E6E6]">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={member.img}
                     alt={member.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
-                    className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                    loading="lazy"
                   />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-[#0E0E0E]/40 opacity-0 group-hover:opacity-0 transition-opacity duration-300" />
                 </div>
                 {/* Info */}
                 <div>

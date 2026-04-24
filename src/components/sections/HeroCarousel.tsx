@@ -59,7 +59,7 @@ export function HeroCarousel({ locale }: HeroCarouselProps) {
     }
   };
 
-  const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
+  const contactHref = locale === 'es' ? '/es#contacto' : '/en#contacto';
   const servicesHref = locale === 'es' ? '/es/servicios' : '/en/services';
 
   const slide = heroSlides[current];

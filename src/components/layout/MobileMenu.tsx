@@ -1,7 +1,6 @@
 'use client';
 import { useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { X, Globe } from 'lucide-react';
 import { navLinks } from '@/data/navigation';
 import { Locale, t } from '@/lib/i18n';
@@ -60,7 +59,7 @@ export function MobileMenu({
     return map[slug] || 'inicio';
   })();
 
-  const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
+  const contactHref = locale === 'es' ? '/es#contacto' : '/en#contacto';
 
   return (
     <>
@@ -96,12 +95,11 @@ export function MobileMenu({
               onClick={onClose}
               aria-label="Quintana Reyes & Asociados"
             >
-              <Image
-                src="/images/logo/logo_QR_asociados-black.svg"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/logo/logo_qr_asociados-dorado.webp"
                 alt="Quintana Reyes & Asociados"
-                width={140}
-                height={42}
-                className="h-9 w-auto object-contain"
+                className="h-9 w-auto object-contain brightness-0"
               />
             </Link>
             <button

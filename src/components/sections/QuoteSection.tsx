@@ -8,7 +8,7 @@ interface QuoteSectionProps {
 }
 
 export function QuoteSection({ locale }: QuoteSectionProps) {
-  const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
+  const contactHref = locale === 'es' ? '/es#contacto' : '/en#contacto';
 
   return (
     <section className="bg-[#0E0E0E] py-24 sm:py-32 relative overflow-hidden">

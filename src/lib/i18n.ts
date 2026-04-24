@@ -12,7 +12,7 @@ export const routeMap: Record<string, Record<Locale, string>> = {
   home: { es: '/es', en: '/en' },
   about: { es: '/es/nosotros', en: '/en/about' },
   services: { es: '/es/servicios', en: '/en/services' },
-  contact: { es: '/es/contacto', en: '/en/contact' },
+  contact: { es: '/es#contacto', en: '/en#contacto' },
 };
 
 // Get the page key from a path segment
