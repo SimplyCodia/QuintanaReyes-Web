@@ -1,0 +1,29 @@
+'use client';
+
+import { useAuth } from '@/lib/admin/auth';
+import { LoginPage } from '@/components/admin/LoginPage';
+import { Sidebar } from '@/components/admin/Sidebar';
+import { Dashboard } from '@/components/admin/Dashboard';
+
+export default function AdminPage() {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#FAFAF7] flex items-center justify-center">
+        <p className="text-[#6B6B6B]">Cargando...</p>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) return <LoginPage />;
+
+  return (
+    <div className="flex">
+      <Sidebar />
+      <main className="ml-64 flex-1 p-8">
+        <Dashboard />
+      </main>
+    </div>
+  );
+}
