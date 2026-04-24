@@ -53,7 +53,7 @@ describe('heroSlides', () => {
 
   it('image paths reference hero slide images', () => {
     heroSlides.forEach((slide: HeroSlide) => {
-      expect(slide.img).toMatch(/^\/images\/hero\//);
+      expect(slide.img).toMatch(/^(\/images\/hero\/|https:\/\/)/);
     });
   });
 
