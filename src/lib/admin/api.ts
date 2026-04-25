@@ -130,7 +130,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 }
 
 export async function getSolicitudesPorDia(days?: number): Promise<SolicitudesPorDia[]> {
-  const qs = days ? `?days=${days}` : '';
+  const qs = days ? `?dias=${days}` : '';
   const result = await request<{ success: boolean; data: SolicitudesPorDia[] }>(
     `/dashboard/solicitudes-por-dia${qs}`,
   );

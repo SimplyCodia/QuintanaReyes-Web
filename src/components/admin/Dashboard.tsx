@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   LineChart,
   Line,
@@ -96,6 +97,7 @@ const ESTADO_LABELS: Record<EstadoSolicitud, string> = {
 
 export function Dashboard() {
   const { user } = useAuth();
+  const router = useRouter();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [porDia, setPorDia] = useState<SolicitudesPorDia[]>([]);
   const [distribucion, setDistribucion] = useState<DistribucionPorArea[]>([]);
@@ -188,8 +190,8 @@ export function Dashboard() {
       iconBg: 'rgba(59, 130, 246, 0.1)',
     },
     {
-      label: 'Atendidas Este Mes',
-      value: stats?.atendidasMes ?? 0,
+      label: 'Atendidas',
+      value: stats?.atendidas ?? stats?.atendidasMes ?? 0,
       icon: CheckCircle,
       iconColor: '#10B981',
       iconBg: 'rgba(16, 185, 129, 0.1)',
@@ -198,14 +200,18 @@ export function Dashboard() {
 
   const chartData = porDia.map((d) => ({
     fecha: new Date(d.fecha).toLocaleDateString('es-PA', { day: '2-digit', month: '2-digit' }),
-    cantidad: d.cantidad,
+    cantidad: (d as unknown as { total?: number }).total ?? d.cantidad ?? 0,
   }));
 
-  const pieData = distribucion.map((d) => ({
-    name: AREA_LABELS[d.area] ?? d.area,
-    value: d.cantidad,
-    color: AREA_COLORS[d.area] ?? '#999',
-  }));
+  const pieData = distribucion.map((d) => {
+    const raw = d as unknown as { tipoCaso?: string; total?: number };
+    const area = (d.area ?? raw.tipoCaso ?? '') as TipoCaso;
+    return {
+      name: AREA_LABELS[area] ?? area,
+      value: raw.total ?? d.cantidad ?? 0,
+      color: AREA_COLORS[area] ?? '#999',
+    };
+  });
 
   return (
     <div className="space-y-8">
@@ -448,10 +454,8 @@ export function Dashboard() {
                   {recientes.map((s) => (
                     <TableRow
                       key={s.id}
-                      component={Link}
-                      href={`/admin/solicitudes/${s.id}`}
+                      onClick={() => router.push(`/admin/solicitudes/detalle/?id=${s.id}`)}
                       sx={{
-                        textDecoration: 'none',
                         cursor: 'pointer',
                         '&:hover': { bgcolor: '#FAFAF7' },
                         '&:hover td:first-of-type .sol-name': { color: '#C9A449' },
@@ -550,10 +554,8 @@ export function Dashboard() {
                   {mias.map((s) => (
                     <TableRow
                       key={s.id}
-                      component={Link}
-                      href={`/admin/solicitudes/${s.id}`}
+                      onClick={() => router.push(`/admin/solicitudes/detalle/?id=${s.id}`)}
                       sx={{
-                        textDecoration: 'none',
                         cursor: 'pointer',
                         '&:hover': { bgcolor: '#FAFAF7' },
                         '&:hover td:first-of-type .sol-name': { color: '#C9A449' },

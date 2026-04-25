@@ -76,9 +76,13 @@ export interface DashboardStats {
   totalSolicitudes: number;
   pendientes: number;
   enProceso: number;
-  atendidasMes: number;
-  solicitudesHoy: number;
-  solicitudesSemana: number;
+  atendidasMes?: number;
+  atendidas?: number;
+  nuevasHoy?: number;
+  solicitudesHoy?: number;
+  nuevasSemana?: number;
+  solicitudesSemana?: number;
+  [key: string]: number | undefined;
 }
 
 export interface SolicitudesPorDia {

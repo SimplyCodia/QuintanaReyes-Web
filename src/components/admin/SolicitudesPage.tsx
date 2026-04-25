@@ -329,7 +329,7 @@ export function SolicitudesPage() {
                         <Button
                           className="ver-detalle-btn"
                           component={Link}
-                          href={`/admin/solicitudes/${s.id}`}
+                          href={`/admin/solicitudes/detalle?id=${s.id}`}
                           size="small"
                           endIcon={<ChevronRight size={13} />}
                           sx={{
