@@ -129,8 +129,8 @@ export function Footer({ locale }: FooterProps) {
                 <span className="font-sans text-sm text-white/60 leading-relaxed">
                   {t(
                     locale,
-                    'Obarrio, Ciudad de Panamá, República de Panamá',
-                    'Obarrio, Panama City, Republic of Panama'
+                    'Obarrio, Ciudad de Panamá, PH Twist Tower, piso 27, oficina 27H',
+                    'Obarrio, Panama City, PH Twist Tower, 27th floor, office 27H'
                   )}
                 </span>
               </li>
@@ -142,7 +142,7 @@ export function Footer({ locale }: FooterProps) {
                     {' | '}
                     <a href="tel:+50766069100" className="hover:text-[#C9A449] transition-colors">+507 6606-9100</a>
                   </p>
-                  <p className="font-sans text-sm text-white/40">309-0166 EXT 323</p>
+                  <p className="font-sans text-sm text-white/40">373-6404</p>
                 </div>
               </li>
               <li className="flex items-center gap-3">

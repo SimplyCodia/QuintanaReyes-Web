@@ -70,7 +70,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
               <img
                 src="/images/logo/logo_qr_asociados-dorado.webp"
                 alt="Quintana Reyes & Asociados"
-                className={`h-14 w-auto object-contain transition-all duration-500 ${
+                className={`h-20 w-auto object-contain transition-all duration-500 ${
                   transparent ? '' : 'brightness-0'
                 }`}
               />

@@ -149,7 +149,7 @@ export function ContactSection({ locale }: ContactSectionProps) {
                   <p className="font-sans text-sm text-[#1C1C1C] leading-relaxed">
                     {t(locale, 'Ciudad de Panamá, Obarrio,', 'Panama City, Obarrio,')}
                     <br />
-                    {t(locale, 'PH Atrium Tower, piso 26.', 'PH Atrium Tower, 26th floor.')}
+                    {t(locale, 'PH Twist Tower, piso 27, oficina 27H.', 'PH Twist Tower, 27th floor, office 27H.')}
                   </p>
                 </div>
               </div>
@@ -167,7 +167,7 @@ export function ContactSection({ locale }: ContactSectionProps) {
                     {' | '}
                     <a href="tel:+50766069100" className="hover:text-[#C9A449] transition-colors">+507 6606-9100</a>
                   </p>
-                  <p className="font-sans text-sm text-[#6B6B6B] mt-0.5">309-0166 EXT 323</p>
+                  <p className="font-sans text-sm text-[#6B6B6B] mt-0.5">373-6404</p>
                 </div>
               </div>
 

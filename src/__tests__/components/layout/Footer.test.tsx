@@ -123,12 +123,12 @@ describe('Footer', () => {
 
     it('renders location in Spanish when locale is es', () => {
       render(<Footer locale="es" />);
-      expect(screen.getByText('Obarrio, Ciudad de Panamá, República de Panamá')).toBeInTheDocument();
+      expect(screen.getByText('Obarrio, Ciudad de Panamá, PH Twist Tower, piso 27, oficina 27H')).toBeInTheDocument();
     });
 
     it('renders location in English when locale is en', () => {
       render(<Footer locale="en" />);
-      expect(screen.getByText('Obarrio, Panama City, Republic of Panama')).toBeInTheDocument();
+      expect(screen.getByText('Obarrio, Panama City, PH Twist Tower, 27th floor, office 27H')).toBeInTheDocument();
     });
 
     it('renders Spanish office hours when locale is es', () => {
