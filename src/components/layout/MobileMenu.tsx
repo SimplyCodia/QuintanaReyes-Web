@@ -59,7 +59,7 @@ export function MobileMenu({
     return map[slug] || 'inicio';
   })();
 
-  const contactHref = locale === 'es' ? '/es#contacto' : '/en#contacto';
+  const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
 
   return (
     <>

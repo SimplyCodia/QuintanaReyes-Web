@@ -47,7 +47,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
 
   const transparent = isHomePage && !scrolled;
   const alternateUrl = getAlternateUrl(currentPath, locale);
-  const contactHref = locale === 'es' ? '/es#contacto' : '/en#contacto';
+  const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
 
   return (
     <>
