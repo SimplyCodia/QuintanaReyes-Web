@@ -1,6 +1,7 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { X, Globe } from 'lucide-react';
 import { navLinks } from '@/data/navigation';
 import { Locale, t } from '@/lib/i18n';
@@ -60,7 +61,13 @@ export function MobileMenu({
     return map[slug] || 'inicio';
   })();
 
+  const router = useRouter();
   const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
+
+  const handleLanguageSwitch = useCallback(() => {
+    onClose();
+    router.push(alternateUrl, { scroll: false });
+  }, [alternateUrl, router, onClose]);
 
   return (
     <>
@@ -147,15 +154,15 @@ export function MobileMenu({
           {/* Bottom section */}
           <div className="px-8 pb-8 border-t border-[#E6E6E6] pt-6 space-y-5">
             {/* Language switcher */}
-            <Link
-              href={alternateUrl}
-              onClick={onClose}
+            <button
+              type="button"
+              onClick={handleLanguageSwitch}
               className="flex items-center gap-2 font-sans text-sm font-semibold tracking-widest uppercase text-[#6B6B6B] hover:text-[#C9A449] transition-colors duration-200"
               aria-label={t(locale, 'Cambiar a inglés', 'Switch to Spanish')}
             >
               <Globe className="w-4 h-4" />
               {locale === 'es' ? 'English' : 'Español'}
-            </Link>
+            </button>
 
             {/* CTA button */}
             <Link

@@ -18,7 +18,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  TextField,
   Select,
   MenuItem,
   FormControl,
@@ -32,6 +31,8 @@ import {
   Box,
   CircularProgress,
   Skeleton,
+  Tabs,
+  Tab,
 } from '@mui/material';
 import { getSolicitudById, updateSolicitud, getUsers } from '@/lib/admin/api';
 import {
@@ -41,6 +42,7 @@ import {
   User as UserType,
 } from '@/lib/admin/types';
 import { formatDate, formatDateTime } from '@/lib/admin/utils';
+import { NotasTab } from './NotasTab';
 
 interface Props {
   solicitudId: string;
@@ -87,10 +89,10 @@ export function SolicitudDetalle({ solicitudId }: Props) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [snackOpen, setSnackOpen] = useState(false);
+  const [tab, setTab] = useState(0);
 
   const [estado, setEstado] = useState<EstadoSolicitud | ''>('');
   const [asignadoAId, setAsignadoAId] = useState('');
-  const [notasInternas, setNotasInternas] = useState('');
 
   const load = useCallback(async () => {
     try {
@@ -102,7 +104,6 @@ export function SolicitudDetalle({ solicitudId }: Props) {
       setSolicitud(data);
       setEstado(data.estado);
       setAsignadoAId(data.asignadoAId ?? '');
-      setNotasInternas(data.notasInternas ?? '');
       setUsers(usersData);
     } catch {
       setError('No se pudo cargar la solicitud.');
@@ -123,7 +124,6 @@ export function SolicitudDetalle({ solicitudId }: Props) {
       const updated = await updateSolicitud(solicitudId, {
         estado: estado as EstadoSolicitud,
         asignadoAId: asignadoAId || null,
-        notasInternas: notasInternas || null,
       });
       setSolicitud((prev) => (prev ? { ...prev, ...updated } : prev));
       setSnackOpen(true);
@@ -148,7 +148,7 @@ export function SolicitudDetalle({ solicitudId }: Props) {
             <Skeleton variant="rounded" height={240} />
           </div>
           <div className="space-y-6">
-            <Skeleton variant="rounded" height={320} />
+            <Skeleton variant="rounded" height={280} />
             <Skeleton variant="rounded" height={180} />
           </div>
         </div>
@@ -215,9 +215,9 @@ export function SolicitudDetalle({ solicitudId }: Props) {
       )}
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Left: Client info + Message + History */}
-        <div className="xl:col-span-2 space-y-6">
-          {/* Client info */}
+        {/* Left: Client info + Tabs (Información / Historial / Notas) */}
+        <div className="xl:col-span-2 space-y-4">
+          {/* Client info — always visible above tabs */}
           <Card elevation={0} sx={{ border: '1px solid #E6E6E6', borderRadius: 2 }}>
             <CardHeader
               title={
@@ -241,127 +241,181 @@ export function SolicitudDetalle({ solicitudId }: Props) {
                   value={ESTADO_LABELS[solicitud.estado]}
                 />
               </div>
+              {solicitud.clienteId && solicitud.clienteNombre && (
+                <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography variant="caption" sx={{ color: '#6B6B6B' }}>
+                    Cliente vinculado:
+                  </Typography>
+                  <Button
+                    component={Link}
+                    href={`/admin/clientes/detalle?id=${solicitud.clienteId}`}
+                    size="small"
+                    variant="text"
+                    sx={{
+                      color: '#C9A449',
+                      fontSize: '0.75rem',
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      p: 0,
+                      minWidth: 0,
+                      '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' },
+                    }}
+                  >
+                    {solicitud.clienteNombre}
+                  </Button>
+                </Box>
+              )}
             </CardContent>
           </Card>
 
-          {/* Message */}
-          {solicitud.mensaje && (
-            <Card elevation={0} sx={{ border: '1px solid #E6E6E6', borderRadius: 2 }}>
-              <CardHeader
-                title={
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <MessageSquare size={16} color="#C9A449" />
-                    <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A1A1A' }}>
-                      Mensaje del Cliente
-                    </Typography>
-                  </Box>
-                }
-                sx={{ pb: 1 }}
-              />
-              <CardContent>
-                <Typography
-                  variant="body2"
-                  sx={{ color: '#1A1A1A', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}
-                >
-                  {solicitud.mensaje}
-                </Typography>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* History Timeline */}
+          {/* Tabs: Información / Historial / Notas */}
           <Card elevation={0} sx={{ border: '1px solid #E6E6E6', borderRadius: 2 }}>
-            <CardHeader
-              title={
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Box sx={{ borderBottom: '1px solid #E6E6E6' }}>
+              <Tabs
+                value={tab}
+                onChange={(_e, v: number) => setTab(v)}
+                sx={{
+                  px: 2,
+                  minHeight: 44,
+                  '& .MuiTabs-indicator': { backgroundColor: '#C9A449' },
+                  '& .MuiTab-root': {
+                    textTransform: 'none',
+                    fontSize: '0.8125rem',
+                    fontWeight: 500,
+                    color: '#6B6B6B',
+                    minHeight: 44,
+                    '&.Mui-selected': { color: '#C9A449', fontWeight: 600 },
+                  },
+                }}
+              >
+                <Tab label="Información" />
+                <Tab label="Historial" />
+                <Tab label="Notas" />
+              </Tabs>
+            </Box>
+
+            {/* Tab 0: Información — Mensaje del Cliente */}
+            {tab === 0 && (
+              <CardContent>
+                {solicitud.mensaje ? (
+                  <>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                      <MessageSquare size={16} color="#C9A449" />
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A1A1A' }}>
+                        Mensaje del Cliente
+                      </Typography>
+                    </Box>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: '#1A1A1A', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}
+                    >
+                      {solicitud.mensaje}
+                    </Typography>
+                  </>
+                ) : (
+                  <Typography variant="body2" sx={{ color: '#6B6B6B' }}>
+                    Esta solicitud no incluye un mensaje del cliente.
+                  </Typography>
+                )}
+              </CardContent>
+            )}
+
+            {/* Tab 1: Historial */}
+            {tab === 1 && (
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
                   <Clock size={16} color="#C9A449" />
                   <Typography variant="body2" sx={{ fontWeight: 600, color: '#1A1A1A' }}>
                     Historial de Estados
                   </Typography>
                 </Box>
-              }
-              sx={{ pb: 1 }}
-            />
-            <CardContent>
-              {solicitud.historial.length === 0 ? (
-                <Typography variant="body2" sx={{ color: '#6B6B6B' }}>
-                  Sin historial registrado.
-                </Typography>
-              ) : (
-                <Box
-                  component="ol"
-                  sx={{
-                    position: 'relative',
-                    borderLeft: '1px solid #E6E6E6',
-                    ml: 1,
-                    pl: 0,
-                    listStyle: 'none',
-                    m: 0,
-                    p: 0,
-                  }}
-                >
-                  {[...solicitud.historial]
-                    .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
-                    .map((h, idx, arr) => {
-                      const NuevoIcon = ESTADO_ICONS[h.estadoNuevo];
-                      return (
-                        <Box
-                          component="li"
-                          key={h.id}
-                          sx={{
-                            ml: 3,
-                            position: 'relative',
-                            pb: idx < arr.length - 1 ? 3 : 0,
-                          }}
-                        >
-                          {/* Dot */}
+                {solicitud.historial.length === 0 ? (
+                  <Typography variant="body2" sx={{ color: '#6B6B6B' }}>
+                    Sin historial registrado.
+                  </Typography>
+                ) : (
+                  <Box
+                    component="ol"
+                    sx={{
+                      position: 'relative',
+                      borderLeft: '1px solid #E6E6E6',
+                      ml: 1,
+                      pl: 0,
+                      listStyle: 'none',
+                      m: 0,
+                      p: 0,
+                    }}
+                  >
+                    {[...solicitud.historial]
+                      .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
+                      .map((h, idx, arr) => {
+                        const NuevoIcon = ESTADO_ICONS[h.estadoNuevo];
+                        return (
                           <Box
+                            component="li"
+                            key={h.id}
                             sx={{
-                              position: 'absolute',
-                              left: -22,
-                              top: 2,
-                              width: 20,
-                              height: 20,
-                              borderRadius: '50%',
-                              bgcolor: '#C9A449',
-                              border: '2px solid white',
-                              boxShadow: '0 0 0 1px #C9A449',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
+                              ml: 3,
+                              position: 'relative',
+                              pb: idx < arr.length - 1 ? 3 : 0,
                             }}
                           >
-                            <NuevoIcon size={10} color="white" />
-                          </Box>
-                          <Box>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                              <Typography variant="body2" sx={{ fontWeight: 500, color: '#1A1A1A' }}>
-                                {h.estadoAnterior
-                                  ? `${ESTADO_LABELS[h.estadoAnterior]} → ${ESTADO_LABELS[h.estadoNuevo]}`
-                                  : `Creada como ${ESTADO_LABELS[h.estadoNuevo]}`}
-                              </Typography>
-                              <Chip
-                                label={ESTADO_LABELS[h.estadoNuevo]}
-                                color={ESTADO_CHIP_COLOR[h.estadoNuevo]}
-                                size="small"
-                                sx={{ fontSize: '0.625rem', height: 20 }}
-                              />
+                            {/* Dot */}
+                            <Box
+                              sx={{
+                                position: 'absolute',
+                                left: -22,
+                                top: 2,
+                                width: 20,
+                                height: 20,
+                                borderRadius: '50%',
+                                bgcolor: '#C9A449',
+                                border: '2px solid white',
+                                boxShadow: '0 0 0 1px #C9A449',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <NuevoIcon size={10} color="white" />
                             </Box>
-                            {h.comentario && (
-                              <Typography variant="caption" sx={{ color: '#6B6B6B', display: 'block', mt: 0.5 }}>
-                                {h.comentario}
+                            <Box>
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                                <Typography variant="body2" sx={{ fontWeight: 500, color: '#1A1A1A' }}>
+                                  {h.estadoAnterior
+                                    ? `${ESTADO_LABELS[h.estadoAnterior]} → ${ESTADO_LABELS[h.estadoNuevo]}`
+                                    : `Creada como ${ESTADO_LABELS[h.estadoNuevo]}`}
+                                </Typography>
+                                <Chip
+                                  label={ESTADO_LABELS[h.estadoNuevo]}
+                                  color={ESTADO_CHIP_COLOR[h.estadoNuevo]}
+                                  size="small"
+                                  sx={{ fontSize: '0.625rem', height: 20 }}
+                                />
+                              </Box>
+                              {h.comentario && (
+                                <Typography variant="caption" sx={{ color: '#6B6B6B', display: 'block', mt: 0.5 }}>
+                                  {h.comentario}
+                                </Typography>
+                              )}
+                              <Typography variant="caption" sx={{ color: '#C0C0C0', display: 'block', mt: 0.25 }}>
+                                {h.usuarioNombre ?? 'Sistema'} &middot; {formatDateTime(h.fecha)}
                               </Typography>
-                            )}
-                            <Typography variant="caption" sx={{ color: '#C0C0C0', display: 'block', mt: 0.25 }}>
-                              {h.usuarioNombre ?? 'Sistema'} &middot; {formatDateTime(h.fecha)}
-                            </Typography>
+                            </Box>
                           </Box>
-                        </Box>
-                      );
-                    })}
-                </Box>
-              )}
-            </CardContent>
+                        );
+                      })}
+                  </Box>
+                )}
+              </CardContent>
+            )}
+
+            {/* Tab 2: Notas — threaded comments */}
+            {tab === 2 && (
+              <CardContent sx={{ p: 0 }}>
+                <NotasTab solicitudId={solicitudId} />
+              </CardContent>
+            )}
           </Card>
         </div>
 
@@ -408,17 +462,6 @@ export function SolicitudDetalle({ solicitudId }: Props) {
                     ))}
                   </Select>
                 </FormControl>
-
-                <TextField
-                  label="Notas Internas"
-                  value={notasInternas}
-                  onChange={(e) => setNotasInternas(e.target.value)}
-                  placeholder="Notas visibles solo para el equipo..."
-                  multiline
-                  rows={4}
-                  size="small"
-                  fullWidth
-                />
 
                 <Button
                   variant="contained"
@@ -545,7 +588,15 @@ function MetaRow({
           color: '#1A1A1A',
           mt: 0.25,
           ml: 0,
-          ...(mono ? { fontFamily: 'monospace', fontSize: '0.75rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' } : {}),
+          ...(mono
+            ? {
+                fontFamily: 'monospace',
+                fontSize: '0.75rem',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }
+            : {}),
         }}
       >
         {value}

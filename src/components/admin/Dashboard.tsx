@@ -38,7 +38,6 @@ import {
   Skeleton,
   Alert,
   Box,
-  Divider,
 } from '@mui/material';
 import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
 import {

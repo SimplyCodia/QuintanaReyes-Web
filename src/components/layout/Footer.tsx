@@ -189,15 +189,26 @@ export function Footer({ locale }: FooterProps) {
                 `© ${year} Quintana Reyes & Associates. All rights reserved.`
               )}
             </p>
+            <p className="font-sans text-xs text-white/40 text-center">
+              {t(locale, 'Hecho por', 'Made by')}{' '}
+              <a
+                href="https://simplycodia.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-[#C9A449] transition-colors duration-200"
+              >
+                SimplyCodia
+              </a>
+            </p>
             <div className="flex items-center gap-6">
               <Link
-                href="#"
+                href={locale === 'es' ? '/es/politica-de-privacidad' : '/en/privacy-policy'}
                 className="font-sans text-xs text-white/40 hover:text-white/70 transition-colors duration-200"
               >
                 {t(locale, 'Política de privacidad', 'Privacy policy')}
               </Link>
               <Link
-                href="#"
+                href={locale === 'es' ? '/es/aviso-legal' : '/en/legal-notice'}
                 className="font-sans text-xs text-white/40 hover:text-white/70 transition-colors duration-200"
               >
                 {t(locale, 'Aviso legal', 'Legal notice')}

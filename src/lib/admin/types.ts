@@ -1,3 +1,28 @@
+export type OrigenSolicitud = 'web' | 'whatsapp' | 'tiktok' | 'instagram' | 'referido';
+
+export const ORIGEN_OPTIONS: { value: OrigenSolicitud; label: string }[] = [
+  { value: 'web', label: 'Web' },
+  { value: 'whatsapp', label: 'WhatsApp' },
+  { value: 'tiktok', label: 'TikTok' },
+  { value: 'instagram', label: 'Instagram' },
+  { value: 'referido', label: 'Referido' },
+];
+
+export interface Cliente {
+  id: number;
+  nombre: string;
+  telefono: string;
+  email: string;
+  notas: string | null;
+  totalSolicitudes?: number;
+  fechaCreacion: string;
+  fechaActualizacion: string;
+}
+
+export interface ClienteDetalle extends Cliente {
+  solicitudes: Solicitud[];
+}
+
 export enum Rol {
   ADMIN = 'ADMIN',
   ABOGADO = 'ABOGADO',
@@ -42,6 +67,8 @@ export interface Solicitud {
   asignadoAId: string | null;
   asignadoNombre: string | null;
   origen: string | null;
+  clienteId: number | null;
+  clienteNombre: string | null;
   fechaCreacion: string;
   fechaActualizacion: string;
 }
@@ -130,6 +157,28 @@ export interface BlogPost extends BlogPostInput {
  * Lighter shape returned by the admin listing endpoint (no contenido fields).
  */
 export type BlogPostSummary = Omit<BlogPost, 'contenido_es' | 'contenido_en'>;
+
+export interface Comentario {
+  id: number;
+  solicitudId: number;
+  usuarioId: number;
+  usuarioNombre: string;
+  contenido: string;
+  parentId: number | null;
+  fechaCreacion: string;
+}
+
+export interface Notificacion {
+  id: number;
+  usuarioId: number;
+  tipo: string;
+  titulo: string;
+  mensaje: string | null;
+  entidad: string | null;
+  entidadId: number | null;
+  leida: boolean;
+  fechaCreacion: string;
+}
 
 /**
  * Projected shape returned by the public API (?lang=es|en).

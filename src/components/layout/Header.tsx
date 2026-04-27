@@ -1,6 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Globe, Menu } from 'lucide-react';
 import { navLinks } from '@/data/navigation';
 import { Locale, t, getAlternateUrl } from '@/lib/i18n';
@@ -13,6 +14,7 @@ interface HeaderProps {
 }
 
 export function Header({ locale, currentPath }: HeaderProps) {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -51,6 +53,10 @@ export function Header({ locale, currentPath }: HeaderProps) {
   const overrideAlternateUrl = useAlternateLinkValue();
   const alternateUrl = overrideAlternateUrl ?? getAlternateUrl(currentPath, locale);
   const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
+
+  const handleLanguageSwitch = useCallback(() => {
+    router.push(alternateUrl, { scroll: false });
+  }, [alternateUrl, router]);
 
   return (
     <>
@@ -119,8 +125,9 @@ export function Header({ locale, currentPath }: HeaderProps) {
             {/* Right actions */}
             <div className="hidden lg:flex items-center gap-4">
               {/* Language switcher */}
-              <Link
-                href={alternateUrl}
+              <button
+                type="button"
+                onClick={handleLanguageSwitch}
                 className={`flex items-center gap-1.5 font-sans text-xs font-semibold tracking-widest uppercase transition-colors duration-200 ${
                   transparent
                     ? 'text-white/70 hover:text-[#C9A449]'
@@ -130,7 +137,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
               >
                 <Globe className="w-3.5 h-3.5" />
                 {locale === 'es' ? 'EN' : 'ES'}
-              </Link>
+              </button>
 
               {/* CTA */}
               <Link

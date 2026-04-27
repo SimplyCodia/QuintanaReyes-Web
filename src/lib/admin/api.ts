@@ -10,6 +10,10 @@ import type {
   BlogPostSummary,
   BlogPostInput,
   BlogPostPublic,
+  Cliente,
+  ClienteDetalle,
+  Comentario,
+  Notificacion,
 } from './types';
 import type { Locale } from '@/lib/i18n';
 
@@ -247,4 +251,110 @@ export async function getAuditLogs(limit?: number): Promise<AuditLog[]> {
   const qs = limit ? `?limit=${limit}` : '';
   const result = await request<{ success: boolean; data: AuditLog[] }>(`/audit${qs}`);
   return result.data;
+}
+
+// Clientes
+
+export async function getClientes(params?: {
+  search?: string;
+  page?: number;
+  limit?: number;
+}): Promise<{
+  data: Cliente[];
+  pagination: { page: number; limit: number; total: number; totalPages: number };
+}> {
+  const query = new URLSearchParams();
+  if (params?.search) query.set('search', params.search);
+  if (params?.page) query.set('page', String(params.page));
+  if (params?.limit) query.set('limit', String(params.limit));
+  const qs = query.toString();
+  const result = await request<{
+    success: boolean;
+    data: Cliente[];
+    pagination: { page: number; limit: number; total: number; totalPages: number };
+  }>(`/clientes${qs ? `?${qs}` : ''}`);
+  return { data: result.data, pagination: result.pagination };
+}
+
+export async function getClienteById(id: number): Promise<ClienteDetalle> {
+  const result = await request<{ success: boolean; data: ClienteDetalle }>(`/clientes/${id}`);
+  return result.data;
+}
+
+export async function createCliente(data: {
+  nombre: string;
+  telefono: string;
+  email: string;
+  notas?: string;
+}): Promise<Cliente> {
+  const result = await request<{ success: boolean; data: Cliente }>('/clientes', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return result.data;
+}
+
+export async function updateCliente(id: number, data: Record<string, unknown>): Promise<Cliente> {
+  const result = await request<{ success: boolean; data: Cliente }>(`/clientes/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+  return result.data;
+}
+
+export async function deleteCliente(id: number): Promise<void> {
+  await request<{ success: boolean }>(`/clientes/${id}`, { method: 'DELETE' });
+}
+
+export async function createSolicitudAdmin(data: {
+  nombre: string;
+  telefono: string;
+  email: string;
+  tipoCaso: string;
+  mensaje?: string;
+  origen: string;
+  clienteId?: number | null;
+}): Promise<Solicitud> {
+  const result = await request<{ success: boolean; data: Solicitud }>('/solicitudes/admin', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return result.data;
+}
+
+// Comentarios
+
+export async function getComentarios(solicitudId: string | number) {
+  return request<{ data: Comentario[] }>(`/solicitudes/${solicitudId}/comentarios`);
+}
+
+export async function createComentario(
+  solicitudId: string | number,
+  data: { contenido: string; parentId?: number | null },
+) {
+  return request<{ data: Comentario }>(`/solicitudes/${solicitudId}/comentarios`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+}
+
+// Notificaciones
+
+export async function getNotificaciones(params?: { limit?: number; soloNoLeidas?: boolean }) {
+  const query = new URLSearchParams();
+  if (params?.limit) query.set('limit', String(params.limit));
+  if (params?.soloNoLeidas) query.set('soloNoLeidas', '1');
+  const qs = query.toString();
+  return request<{ data: Notificacion[]; totalNoLeidas: number }>(
+    `/notificaciones${qs ? `?${qs}` : ''}`,
+  );
+}
+
+export async function marcarNotificacionLeida(id: number) {
+  return request<{ success: boolean }>(`/notificaciones/${id}/leer`, { method: 'PUT' });
+}
+
+export async function marcarTodasNotificacionesLeidas() {
+  return request<{ success: boolean }>('/notificaciones/leer-todas', { method: 'PUT' });
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Search, RefreshCw, ChevronRight, Filter } from 'lucide-react';
+import { Search, RefreshCw, ChevronRight, Filter, PlusCircle } from 'lucide-react';
 import {
   TextField,
   InputAdornment,
@@ -34,6 +34,7 @@ import {
 import { getSolicitudes } from '@/lib/admin/api';
 import { Solicitud, EstadoSolicitud, TipoCaso } from '@/lib/admin/types';
 import { formatDate } from '@/lib/admin/utils';
+import { NuevaSolicitudModal } from './NuevaSolicitudModal';
 
 const ESTADO_CHIP_COLOR: Record<
   EstadoSolicitud,
@@ -72,6 +73,7 @@ export function SolicitudesPage() {
   const [tipoFilter, setTipoFilter] = useState('');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(20);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -137,22 +139,33 @@ export function SolicitudesPage() {
             {filtered.length !== 1 ? 's' : ''}
           </Typography>
         </Box>
-        <Button
-          variant="outlined"
-          onClick={load}
-          disabled={loading}
-          startIcon={
-            <RefreshCw
-              size={16}
-              style={{
-                animation: loading ? 'spin 1s linear infinite' : 'none',
-              }}
-            />
-          }
-          sx={{ textTransform: 'none', flexShrink: 0 }}
-        >
-          Actualizar
-        </Button>
+        <Box sx={{ display: 'flex', gap: 1.5, flexShrink: 0 }}>
+          <Button
+            variant="outlined"
+            onClick={load}
+            disabled={loading}
+            startIcon={
+              <RefreshCw
+                size={16}
+                style={{
+                  animation: loading ? 'spin 1s linear infinite' : 'none',
+                }}
+              />
+            }
+            sx={{ textTransform: 'none' }}
+          >
+            Actualizar
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<PlusCircle size={16} />}
+            onClick={() => setModalOpen(true)}
+            sx={{ textTransform: 'none', fontWeight: 600 }}
+          >
+            Nueva Solicitud
+          </Button>
+        </Box>
       </Box>
 
       {/* Filters */}
@@ -369,6 +382,12 @@ export function SolicitudesPage() {
           </>
         )}
       </Paper>
+
+      <NuevaSolicitudModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onCreated={load}
+      />
     </div>
   );
 }

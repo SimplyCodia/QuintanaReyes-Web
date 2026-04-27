@@ -12,6 +12,7 @@ import {
   Settings,
   User,
   LogOut,
+  Contact,
 } from 'lucide-react';
 import {
   Drawer,
@@ -26,6 +27,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAuth } from '@/lib/admin/auth';
+import { NotificationBell } from './NotificationBell';
 
 interface NavItem {
   label: string;
@@ -37,6 +39,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { label: 'Solicitudes', href: '/admin/solicitudes', icon: FileText },
+  { label: 'Clientes', href: '/admin/clientes', icon: Contact },
   { label: 'Blog', href: '/admin/blog', icon: Newspaper },
   { label: 'Usuarios', href: '/admin/usuarios', icon: Users, adminOnly: true },
   { label: 'Auditoría', href: '/admin/auditoria', icon: Shield, adminOnly: true },
@@ -77,7 +80,7 @@ export function Sidebar() {
         <Box sx={{ width: 36, height: 36, bgcolor: '#C9A449', borderRadius: 1.5, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <Scale size={20} color="#0E0E0E" />
         </Box>
-        <Box>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
           <Typography variant="caption" sx={{ color: '#FAFAF7', fontWeight: 700, fontSize: '0.8rem', lineHeight: 1.2, display: 'block', letterSpacing: '0.02em' }}>
             Quintana Reyes
           </Typography>
@@ -85,6 +88,7 @@ export function Sidebar() {
             Abogados &amp; Asociados
           </Typography>
         </Box>
+        <NotificationBell />
       </Box>
 
       {/* Navigation */}

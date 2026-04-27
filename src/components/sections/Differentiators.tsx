@@ -78,7 +78,7 @@ export function Differentiators({ locale }: DifferentiatorsProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {diffCards.map((card, i) => (
             <FadeIn key={i} delay={i * 100}>
-              <div className="bg-white border border-[#E6E6E6] hover:border-[#C9A449] transition-colors duration-300 p-8 group">
+              <div className="bg-white border border-[#E6E6E6] hover:border-[#C9A449] transition-colors duration-300 p-8 group h-full">
                 <div className="flex items-start gap-5">
                   <div className="flex-shrink-0 w-12 h-12 border border-[#E6E6E6] group-hover:border-[#C9A449] flex items-center justify-center transition-colors duration-300">
                     {card.icon}

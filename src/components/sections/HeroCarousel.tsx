@@ -98,7 +98,7 @@ export function HeroCarousel({ locale }: HeroCarouselProps) {
 
       {/* Content */}
       <div className="relative z-20 h-full flex items-center">
-        <div className="container mx-auto px-6 max-w-[1280px]">
+        <div className="container mx-auto px-6 md:px-20 max-w-[1280px]">
           <div className="max-w-2xl">
             {/* Eyebrow */}
             <p
@@ -146,14 +146,14 @@ export function HeroCarousel({ locale }: HeroCarouselProps) {
       {/* Navigation arrows */}
       <button
         onClick={goPrev}
-        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center border border-white/30 text-white hover:border-[#C9A449] hover:text-[#C9A449] transition-colors duration-300 bg-[#0E0E0E]/20 backdrop-blur-sm"
+        className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 hidden md:flex items-center justify-center border border-white/30 text-white hover:border-[#C9A449] hover:text-[#C9A449] transition-colors duration-300 bg-[#0E0E0E]/20 backdrop-blur-sm"
         aria-label={t(locale, 'Anterior', 'Previous')}
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={goNext}
-        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center border border-white/30 text-white hover:border-[#C9A449] hover:text-[#C9A449] transition-colors duration-300 bg-[#0E0E0E]/20 backdrop-blur-sm"
+        className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 hidden md:flex items-center justify-center border border-white/30 text-white hover:border-[#C9A449] hover:text-[#C9A449] transition-colors duration-300 bg-[#0E0E0E]/20 backdrop-blur-sm"
         aria-label={t(locale, 'Siguiente', 'Next')}
       >
         <ChevronRight className="w-5 h-5" />
