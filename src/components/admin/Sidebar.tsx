@@ -6,6 +6,7 @@ import {
   Scale,
   LayoutDashboard,
   FileText,
+  Newspaper,
   Users,
   Shield,
   Settings,
@@ -36,6 +37,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { label: 'Solicitudes', href: '/admin/solicitudes', icon: FileText },
+  { label: 'Blog', href: '/admin/blog', icon: Newspaper },
   { label: 'Usuarios', href: '/admin/usuarios', icon: Users, adminOnly: true },
   { label: 'Auditoría', href: '/admin/auditoria', icon: Shield, adminOnly: true },
   { label: 'Configuración', href: '/admin/configuracion', icon: Settings, adminOnly: true },

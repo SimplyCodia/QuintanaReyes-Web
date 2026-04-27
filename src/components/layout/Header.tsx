@@ -5,6 +5,7 @@ import { Globe, Menu } from 'lucide-react';
 import { navLinks } from '@/data/navigation';
 import { Locale, t, getAlternateUrl } from '@/lib/i18n';
 import { MobileMenu } from './MobileMenu';
+import { useAlternateLinkValue } from './AlternateLinkContext';
 
 interface HeaderProps {
   locale: Locale;
@@ -39,6 +40,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
       about: 'nosotros',
       servicios: 'servicios',
       services: 'servicios',
+      blog: 'blog',
       contacto: 'contacto',
       contact: 'contacto',
     };
@@ -46,7 +48,8 @@ export function Header({ locale, currentPath }: HeaderProps) {
   })();
 
   const transparent = isHomePage && !scrolled;
-  const alternateUrl = getAlternateUrl(currentPath, locale);
+  const overrideAlternateUrl = useAlternateLinkValue();
+  const alternateUrl = overrideAlternateUrl ?? getAlternateUrl(currentPath, locale);
   const contactHref = locale === 'es' ? '/es/contacto' : '/en/contact';
 
   return (

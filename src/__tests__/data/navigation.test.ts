@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { navLinks, NavLink } from '@/data/navigation';
 
 describe('navLinks', () => {
-  it('has exactly 4 entries', () => {
-    expect(navLinks).toHaveLength(4);
+  it('has exactly 5 entries', () => {
+    expect(navLinks).toHaveLength(5);
   });
 
   it('each link has all required fields', () => {
@@ -49,11 +49,12 @@ describe('navLinks', () => {
     expect(uniqueIds.size).toBe(ids.length);
   });
 
-  it('contains home, about, services, and contact links', () => {
+  it('contains home, about, services, blog, and contact links', () => {
     const ids = navLinks.map((link) => link.id);
     expect(ids).toContain('inicio');
     expect(ids).toContain('nosotros');
     expect(ids).toContain('servicios');
+    expect(ids).toContain('blog');
     expect(ids).toContain('contacto');
   });
 });

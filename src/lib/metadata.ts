@@ -13,6 +13,7 @@ export function generatePageMetadata(page: PageKey, locale: Locale, path: string
     about: { es: '/es/nosotros', en: '/en/about' },
     services: { es: '/es/servicios', en: '/en/services' },
     contact: { es: '/es/contacto', en: '/en/contact' },
+    blog: { es: '/es/blog', en: '/en/blog' },
   };
 
   return {

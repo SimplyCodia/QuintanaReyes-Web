@@ -95,3 +95,63 @@ export interface DistribucionPorArea {
   cantidad: number;
   porcentaje: number;
 }
+
+// ── Blog ──────────────────────────────────────────────────────────
+export type EstadoBlog = 'BORRADOR' | 'PROGRAMADO' | 'PUBLICADO' | 'ARCHIVADO';
+
+export interface BlogPostInput {
+  titulo_es: string;
+  titulo_en?: string;
+  extracto_es?: string | null;
+  extracto_en?: string | null;
+  contenido_es: string;
+  contenido_en?: string;
+  categoria_es?: string | null;
+  categoria_en?: string | null;
+  tags_es?: string[];
+  tags_en?: string[];
+  imagenDestacada?: string | null;
+  imagenDestacadaMime?: string | null;
+  autor: string;
+  estado: EstadoBlog;
+  fechaPublicacion?: string | null;
+}
+
+export interface BlogPost extends BlogPostInput {
+  id: number;
+  slug_es: string;
+  slug_en: string | null;
+  fechaCreacion: string;
+  fechaActualizacion: string;
+  creadoPorId: number | null;
+}
+
+/**
+ * Lighter shape returned by the admin listing endpoint (no contenido fields).
+ */
+export type BlogPostSummary = Omit<BlogPost, 'contenido_es' | 'contenido_en'>;
+
+/**
+ * Projected shape returned by the public API (?lang=es|en).
+ * The backend aliases the bilingual fields into locale-neutral names.
+ */
+export interface BlogPostPublic {
+  id: number;
+  titulo: string;
+  slug: string;
+  /** Both slugs are exposed so the client can build language-switcher URLs. */
+  slug_es: string | null;
+  slug_en: string | null;
+  extracto: string | null;
+  contenido: string;
+  categoria: string | null;
+  tags: string[];
+  imagenDestacada?: string | null;
+  imagenDestacadaMime?: string | null;
+  autor: string;
+  estado: EstadoBlog;
+  fechaPublicacion: string | null;
+  fechaCreacion: string;
+  fechaActualizacion: string;
+  creadoPorId: number | null;
+}

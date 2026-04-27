@@ -6,7 +6,12 @@ import type {
   SolicitudesPorDia,
   DistribucionPorArea,
   AuditLog,
+  BlogPost,
+  BlogPostSummary,
+  BlogPostInput,
+  BlogPostPublic,
 } from './types';
+import type { Locale } from '@/lib/i18n';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
@@ -140,6 +145,98 @@ export async function getSolicitudesPorDia(days?: number): Promise<SolicitudesPo
 export async function getDistribucionPorArea(): Promise<DistribucionPorArea[]> {
   const result = await request<{ success: boolean; data: DistribucionPorArea[] }>(
     '/dashboard/distribucion-por-area',
+  );
+  return result.data;
+}
+
+// Blog (admin)
+
+export async function getBlogPostsAdmin(filters?: {
+  estado?: string;
+  categoria?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+}): Promise<{
+  data: BlogPostSummary[];
+  pagination: { page: number; limit: number; total: number; totalPages: number };
+}> {
+  const params = new URLSearchParams();
+  if (filters?.estado) params.set('estado', filters.estado);
+  if (filters?.categoria) params.set('categoria', filters.categoria);
+  if (filters?.search) params.set('search', filters.search);
+  if (filters?.page) params.set('page', String(filters.page));
+  if (filters?.limit) params.set('limit', String(filters.limit));
+  const qs = params.toString();
+  const result = await request<{
+    success: boolean;
+    data: BlogPostSummary[];
+    pagination: { page: number; limit: number; total: number; totalPages: number };
+  }>(`/blog/admin/all${qs ? `?${qs}` : ''}`);
+  return { data: result.data, pagination: result.pagination };
+}
+
+export async function getBlogPostById(id: number): Promise<BlogPost> {
+  const result = await request<{ success: boolean; data: BlogPost }>(`/blog/admin/${id}`);
+  return result.data;
+}
+
+export async function createBlogPost(data: BlogPostInput): Promise<BlogPost> {
+  const result = await request<{ success: boolean; data: BlogPost }>('/blog', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return result.data;
+}
+
+export async function updateBlogPost(
+  id: number,
+  data: Partial<BlogPostInput>,
+): Promise<BlogPost> {
+  const result = await request<{ success: boolean; data: BlogPost }>(`/blog/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+  return result.data;
+}
+
+export async function deleteBlogPost(id: number): Promise<void> {
+  await request(`/blog/${id}`, { method: 'DELETE' });
+}
+
+// Blog (public)
+
+export async function getPublicBlogPosts(
+  filters?: {
+    categoria?: string;
+    search?: string;
+    page?: number;
+    limit?: number;
+  },
+  lang?: Locale,
+): Promise<{
+  data: BlogPostPublic[];
+  pagination: { page: number; limit: number; total: number; totalPages: number };
+}> {
+  const params = new URLSearchParams();
+  if (filters?.categoria) params.set('categoria', filters.categoria);
+  if (filters?.search) params.set('search', filters.search);
+  if (filters?.page) params.set('page', String(filters.page));
+  if (filters?.limit) params.set('limit', String(filters.limit));
+  if (lang) params.set('lang', lang);
+  const qs = params.toString();
+  const result = await request<{
+    success: boolean;
+    data: BlogPostPublic[];
+    pagination: { page: number; limit: number; total: number; totalPages: number };
+  }>(`/blog${qs ? `?${qs}` : ''}`);
+  return { data: result.data, pagination: result.pagination };
+}
+
+export async function getPublicBlogPostBySlug(slug: string, lang?: Locale): Promise<BlogPostPublic> {
+  const qs = lang ? `?lang=${lang}` : '';
+  const result = await request<{ success: boolean; data: BlogPostPublic }>(
+    `/blog/${encodeURIComponent(slug)}${qs}`,
   );
   return result.data;
 }
