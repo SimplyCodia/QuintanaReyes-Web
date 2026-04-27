@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Locale, locales } from '@/lib/i18n';
+import { AlternateLinkProvider } from './AlternateLinkContext';
 
 interface ClientLayoutProps {
   locale: Locale;
@@ -18,10 +19,12 @@ export function ClientLayout({ locale: serverLocale, children }: ClientLayoutPro
   const locale = locales.includes(pathLocale) ? pathLocale : serverLocale;
 
   return (
-    <div className="min-h-screen flex flex-col bg-white selection:bg-[#C9A449] selection:text-white">
-      <Header locale={locale} currentPath={pathname} />
-      <main className="flex-grow">{children}</main>
-      <Footer locale={locale} />
-    </div>
+    <AlternateLinkProvider>
+      <div className="min-h-screen flex flex-col bg-white selection:bg-[#C9A449] selection:text-white">
+        <Header locale={locale} currentPath={pathname} />
+        <main className="flex-grow">{children}</main>
+        <Footer locale={locale} />
+      </div>
+    </AlternateLinkProvider>
   );
 }

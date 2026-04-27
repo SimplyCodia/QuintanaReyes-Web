@@ -53,6 +53,7 @@ export function MobileMenu({
       about: 'nosotros',
       servicios: 'servicios',
       services: 'servicios',
+      blog: 'blog',
       contacto: 'contacto',
       contact: 'contacto',
     };

@@ -47,6 +47,18 @@ export const seoData = {
         'Contact our law firm in Panama. Schedule a private and confidential consultation with our legal team.',
     },
   },
+  blog: {
+    es: {
+      title: 'Blog | Quintana Reyes & Asociados',
+      description:
+        'Análisis, artículos y notas legales del equipo de Quintana Reyes & Asociados sobre derecho de familia, migratorio, penal, civil y más.',
+    },
+    en: {
+      title: 'Blog | Quintana Reyes & Associates',
+      description:
+        'Analysis, articles, and legal insights from the Quintana Reyes & Associates team on family, immigration, criminal, civil law, and more.',
+    },
+  },
 };
 
 export const BASE_URL = 'https://quintanareyes.com';
