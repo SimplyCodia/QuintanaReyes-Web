@@ -64,7 +64,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           transparent
             ? 'bg-transparent'
-            : 'bg-white border-b border-[#E6E6E6] shadow-sm'
+            : 'bg-[#0E0E0E] border-b border-[#2A2A2A] shadow-sm'
         }`}
       >
         <div className="container mx-auto px-6 max-w-[1280px]">
@@ -80,7 +80,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
                 src="/images/logo/logo_qr_asociados-dorado.webp"
                 alt="Quintana Reyes & Asociados"
                 className={`h-20 w-auto object-contain transition-all duration-500 ${
-                  transparent ? '' : 'brightness-0'
+                  transparent ? '' : ''
                 }`}
               />
             </Link>
@@ -106,7 +106,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
                             : 'text-white hover:text-[#C9A449]'
                           : isActive
                           ? 'text-[#C9A449]'
-                          : 'text-[#1C1C1C] hover:text-[#C9A449]'
+                          : 'text-white hover:text-[#C9A449]'
                       }
                     `}
                     aria-current={isActive ? 'page' : undefined}
@@ -131,7 +131,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
                 className={`flex items-center gap-1.5 font-sans text-xs font-semibold tracking-widest uppercase transition-colors duration-200 ${
                   transparent
                     ? 'text-white/70 hover:text-[#C9A449]'
-                    : 'text-[#6B6B6B] hover:text-[#C9A449]'
+                    : 'text-white/70 hover:text-[#C9A449]'
                 }`}
                 aria-label={t(locale, 'Cambiar a inglés', 'Switch to Spanish')}
               >
@@ -155,7 +155,7 @@ export function Header({ locale, currentPath }: HeaderProps) {
               className={`lg:hidden flex items-center justify-center w-10 h-10 transition-colors duration-200 ${
                 transparent
                   ? 'text-white hover:text-[#C9A449]'
-                  : 'text-[#1C1C1C] hover:text-[#C9A449]'
+                  : 'text-white hover:text-[#C9A449]'
               }`}
               aria-label={t(locale, 'Abrir menú', 'Open menu')}
               aria-expanded={mobileOpen}
