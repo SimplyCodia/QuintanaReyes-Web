@@ -25,14 +25,6 @@ export const teamMembers: TeamMember[] = [
     img: '/images/team/seiling_arroyo.webp',
   },
   {
-    name: 'Ameth Vera',
-    roleEs: 'Asesor financiero',
-    roleEn: 'Financial Advisor',
-    descEs: 'Enfocado en soluciones estratégicas que fortalecen la seguridad patrimonial y financiera.',
-    descEn: 'Focused on strategic solutions that strengthen asset and financial security.',
-    img: '/images/team/ameth-vera.webp',
-  },
-  {
     name: 'Victor Caicedo',
     roleEs: 'Abogado',
     roleEn: 'Attorney at Law',
@@ -47,5 +39,13 @@ export const teamMembers: TeamMember[] = [
     descEs: 'Soporte fundamental en la gestión de casos y atención al cliente.',
     descEn: 'Fundamental support in case management and client service.',
     img: '/images/team/manuel_barsallo.webp',
+  },
+  {
+    name: 'Ameth Vera',
+    roleEs: 'Asesor financiero',
+    roleEn: 'Financial Advisor',
+    descEs: 'Enfocado en soluciones estratégicas que fortalecen la seguridad patrimonial y financiera.',
+    descEn: 'Focused on strategic solutions that strengthen asset and financial security.',
+    img: '/images/team/ameth-vera.webp',
   },
 ];
