@@ -35,8 +35,8 @@ export function FirmIntro({ locale }: FirmIntroProps) {
               <p className="font-sans text-base sm:text-lg text-[#6B6B6B] leading-relaxed mb-6">
                 {t(
                   locale,
-                  'Quintana Reyes & Asociados es una firma legal panameña con sede en Obarrio, Ciudad de Panamá. Fundada sobre los principios de excelencia jurídica, ética profesional y orientación estratégica, ofrecemos asesoría y representación legal de alta calidad en diversas áreas del derecho.',
-                  'Quintana Reyes & Asociados is a Panamanian law firm headquartered in Obarrio, Panama City. Founded on the principles of legal excellence, professional ethics, and strategic guidance, we offer high-quality legal advice and representation across various areas of law.'
+                  'Quintana Reyes & Asociados es una firma legal panameña con sede en Ciudad de Panamá. Fundada sobre los principios de excelencia jurídica, ética profesional y orientación estratégica, ofrecemos asesoría y representación legal de alta calidad en diversas áreas del derecho.',
+                  'Quintana Reyes & Asociados is a Panamanian law firm headquartered in Panama City. Founded on the principles of legal excellence, professional ethics, and strategic guidance, we offer high-quality legal advice and representation across various areas of law.'
                 )}
               </p>
               <p className="font-sans text-base sm:text-lg text-[#6B6B6B] leading-relaxed mb-6">
