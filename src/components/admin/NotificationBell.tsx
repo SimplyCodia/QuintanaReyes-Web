@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import {
   getNotificaciones,
+  getNotificacionesUnreadCount,
   marcarNotificacionLeida,
   marcarTodasNotificacionesLeidas,
 } from '@/lib/admin/api';
@@ -36,31 +37,46 @@ function timeAgo(dateStr: string): string {
   return date.toLocaleDateString('es-PA', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-const POLL_INTERVAL = 30_000;
+const COUNT_POLL_INTERVAL = 10_000;
 
 export function NotificationBell() {
   const router = useRouter();
   const [notificaciones, setNotificaciones] = useState<Notificacion[]>([]);
   const [totalNoLeidas, setTotalNoLeidas] = useState(0);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const prevCountRef = useRef(0);
 
   const fetchNotificaciones = useCallback(async () => {
     try {
       const result = await getNotificaciones({ limit: 20 });
       setNotificaciones(result.data);
       setTotalNoLeidas(result.totalNoLeidas);
+      prevCountRef.current = result.totalNoLeidas;
     } catch {
       // silent — bell is non-critical
     }
   }, []);
 
+  // Two-tier polling: lightweight count every 10s, full fetch only when count changes
   useEffect(() => {
+    // Initial full fetch
     fetchNotificaciones();
-    intervalRef.current = setInterval(fetchNotificaciones, POLL_INTERVAL);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+
+    const pollCount = async () => {
+      try {
+        const { totalNoLeidas: count } = await getNotificacionesUnreadCount();
+        setTotalNoLeidas(count);
+        if (count !== prevCountRef.current) {
+          prevCountRef.current = count;
+          fetchNotificaciones();
+        }
+      } catch {
+        // silent
+      }
     };
+
+    const id = setInterval(pollCount, COUNT_POLL_INTERVAL);
+    return () => clearInterval(id);
   }, [fetchNotificaciones]);
 
   const handleOpen = (e: React.MouseEvent<HTMLElement>) => {
@@ -84,7 +100,7 @@ export function NotificationBell() {
         // ignore
       }
     }
-    if (n.entidadId !== null && n.entidad === 'solicitud') {
+    if (n.entidadId !== null && n.entidad === 'solicitudes') {
       router.push(`/admin/solicitudes/detalle?id=${n.entidadId}`);
     }
   };

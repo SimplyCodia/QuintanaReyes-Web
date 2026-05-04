@@ -351,6 +351,10 @@ export async function getNotificaciones(params?: { limit?: number; soloNoLeidas?
   );
 }
 
+export async function getNotificacionesUnreadCount(): Promise<{ totalNoLeidas: number }> {
+  return request<{ totalNoLeidas: number }>('/notificaciones/unread-count');
+}
+
 export async function marcarNotificacionLeida(id: number) {
   return request<{ success: boolean }>(`/notificaciones/${id}/leer`, { method: 'PUT' });
 }
