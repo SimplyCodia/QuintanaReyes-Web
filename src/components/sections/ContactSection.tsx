@@ -1,7 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { MapPin, Phone, Mail, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, CheckCircle, AlertCircle, Loader2, ChevronDown, Search } from 'lucide-react';
 import { FadeIn } from '@/components/ui/FadeIn';
 import { SectionEyebrow } from '@/components/ui/SectionEyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
@@ -9,9 +9,15 @@ import { Locale, t } from '@/lib/i18n';
 import {
   detectInjection,
   isValidEmail,
-  isValidPhone,
   isValidName,
 } from '@/lib/sanitize';
+
+interface Country {
+  name: string;
+  dialCode: string;
+  flag: string;
+  code: string;
+}
 
 interface ContactSectionProps {
   locale: Locale;
@@ -67,6 +73,80 @@ export function ContactSection({ locale }: ContactSectionProps) {
   const [errorMsg, setErrorMsg] = useState('');
   const [solicitudRef, setSolicitudRef] = useState('');
 
+  // Country selector state
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState('');
+  const [countryLoading, setCountryLoading] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      setCountryLoading(true);
+      try {
+        const response = await fetch(
+          'https://restcountries.com/v3.1/all?fields=name,idd,flags,cca2',
+        );
+        const data = await response.json();
+        const formatted: Country[] = data
+          .filter((c: { idd?: { root?: string } }) => c.idd && c.idd.root)
+          .map(
+            (c: {
+              name: { common: string };
+              idd: { root: string; suffixes?: string[] };
+              flags: { svg: string };
+              cca2: string;
+            }) => ({
+              name: c.name.common,
+              dialCode: c.idd.root + (c.idd.suffixes ? c.idd.suffixes[0] : ''),
+              flag: c.flags.svg,
+              code: c.cca2,
+            }),
+          )
+          .sort((a: Country, b: Country) => a.name.localeCompare(b.name));
+        setCountries(formatted);
+        const defaultCountry =
+          formatted.find((c: Country) => c.dialCode === '+507') || formatted[0];
+        setSelectedCountry(defaultCountry);
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+      } finally {
+        setCountryLoading(false);
+      }
+    };
+    fetchCountries();
+  }, []);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+        setCountrySearch('');
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Focus search input when dropdown opens
+  useEffect(() => {
+    if (isDropdownOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isDropdownOpen]);
+
+  const filteredCountries = countrySearch
+    ? countries.filter(
+        (c) =>
+          c.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+          c.dialCode.includes(countrySearch) ||
+          c.code.toLowerCase().includes(countrySearch.toLowerCase()),
+      )
+    : countries;
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
@@ -98,7 +178,7 @@ export function ContactSection({ locale }: ContactSectionProps) {
 
     if (!form.phone.trim()) {
       errors.phone = t(locale, 'El teléfono es obligatorio.', 'Phone is required.');
-    } else if (!isValidPhone(form.phone.trim())) {
+    } else if (!/^[0-9\-() ]{4,20}$/.test(form.phone.trim())) {
       errors.phone = t(locale, 'Ingrese un teléfono válido.', 'Enter a valid phone number.');
     }
 
@@ -148,7 +228,7 @@ export function ContactSection({ locale }: ContactSectionProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nombre: form.name.trim(),
-          telefono: form.phone.trim(),
+          telefono: `${selectedCountry?.dialCode ?? ''} ${form.phone.trim()}`.trim(),
           email: form.email.trim(),
           tipoCaso: tipoCasoMap[form.area] || 'CIVIL',
           mensaje: form.message.trim(),
@@ -354,22 +434,117 @@ export function ContactSection({ locale }: ContactSectionProps) {
                       )}
                     </div>
 
-                    {/* Phone */}
+                    {/* Phone with country selector */}
                     <div>
                       <label className="block font-sans text-xs text-[#1C1C1C] tracking-[0.1em] uppercase font-semibold mb-2">
                         {t(locale, 'Teléfono *', 'Phone *')}
                       </label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={form.phone}
-                        onChange={handleChange}
-                        placeholder={t(locale, 'Su número de teléfono', 'Your phone number')}
-                        className={fieldErrors.phone ? inputErr : inputOk}
-                        autoComplete="tel"
-                        maxLength={30}
-                        disabled={isLoading}
-                      />
+                      <div className="flex relative" ref={dropdownRef}>
+                        {/* Country selector button */}
+                        <div className="relative">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsDropdownOpen((prev) => !prev);
+                              setCountrySearch('');
+                            }}
+                            disabled={isLoading}
+                            className={`h-full min-w-[108px] px-3 bg-white border rounded-lg flex items-center justify-between cursor-pointer transition-colors duration-200 mr-2 hover:border-[#C9A449] ${
+                              fieldErrors.phone ? 'border-red-400' : 'border-[#E6E6E6] focus:border-[#C9A449]'
+                            }`}
+                          >
+                            {countryLoading ? (
+                              <Loader2 className="animate-spin mx-auto w-4 h-4 text-[#6B6B6B]" />
+                            ) : selectedCountry ? (
+                              <div className="flex items-center gap-2 overflow-hidden">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={selectedCountry.flag}
+                                  alt={selectedCountry.code}
+                                  className="w-6 h-4 object-cover shadow-sm flex-shrink-0 rounded-sm"
+                                />
+                                <span className="text-sm font-medium text-[#1C1C1C] truncate">
+                                  {selectedCountry.dialCode}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-sm text-[#6B6B6B]">...</span>
+                            )}
+                            <ChevronDown
+                              size={14}
+                              className={`transition-transform duration-200 ml-1 text-[#6B6B6B] ${
+                                isDropdownOpen ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </button>
+
+                          {/* Country dropdown */}
+                          {isDropdownOpen && (
+                            <div className="absolute top-full left-0 w-[300px] bg-white shadow-2xl max-h-72 overflow-hidden z-50 mt-1.5 rounded-lg border border-[#E6E6E6] flex flex-col">
+                              {/* Search input */}
+                              <div className="p-2 border-b border-[#E6E6E6] flex-shrink-0">
+                                <div className="relative">
+                                  <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#6B6B6B]" />
+                                  <input
+                                    ref={searchInputRef}
+                                    type="text"
+                                    value={countrySearch}
+                                    onChange={(e) => setCountrySearch(e.target.value)}
+                                    placeholder={t(locale, 'Buscar país...', 'Search country...')}
+                                    className="w-full pl-8 pr-3 py-2 text-sm bg-[#FAFAF7] border border-[#E6E6E6] rounded-md outline-none focus:border-[#C9A449] placeholder:text-[#6B6B6B]/60"
+                                  />
+                                </div>
+                              </div>
+                              {/* Country list */}
+                              <div className="overflow-y-auto flex-1">
+                                {filteredCountries.length === 0 ? (
+                                  <p className="text-sm text-[#6B6B6B] text-center py-4">
+                                    {t(locale, 'Sin resultados', 'No results')}
+                                  </p>
+                                ) : (
+                                  filteredCountries.map((country) => (
+                                    <div
+                                      key={country.code}
+                                      onClick={() => {
+                                        setSelectedCountry(country);
+                                        setIsDropdownOpen(false);
+                                        setCountrySearch('');
+                                      }}
+                                      className="flex items-center gap-3 px-3 py-2.5 hover:bg-[#FAFAF7] cursor-pointer transition-colors border-b border-[#F0F0F0] last:border-0"
+                                    >
+                                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                                      <img
+                                        src={country.flag}
+                                        alt={country.code}
+                                        className="w-6 h-4 object-cover shadow-sm flex-shrink-0 rounded-sm"
+                                      />
+                                      <span className="text-sm font-semibold w-14 text-right text-[#6B6B6B]">
+                                        {country.dialCode}
+                                      </span>
+                                      <span className="text-sm text-[#1C1C1C] truncate font-medium">
+                                        {country.name}
+                                      </span>
+                                    </div>
+                                  ))
+                                )}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Phone number input */}
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={form.phone}
+                          onChange={handleChange}
+                          placeholder="6000-0000"
+                          className={`flex-1 min-w-0 ${fieldErrors.phone ? inputErr : inputOk}`}
+                          autoComplete="tel-national"
+                          maxLength={20}
+                          disabled={isLoading}
+                        />
+                      </div>
                       {fieldErrors.phone && (
                         <p className="font-sans text-xs text-red-500 mt-1">{fieldErrors.phone}</p>
                       )}
