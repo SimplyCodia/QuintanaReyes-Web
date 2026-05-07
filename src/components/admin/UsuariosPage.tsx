@@ -37,6 +37,8 @@ import { formatDate, formatDateTime } from '@/lib/admin/utils';
 const ROL_LABELS: Record<Rol, string> = {
   [Rol.ADMIN]: 'Administrador',
   [Rol.ABOGADO]: 'Abogado',
+  [Rol.ASISTENTE]: 'Asistente',
+  [Rol.LIMITED]: 'Limitado',
 };
 
 export function UsuariosPage() {
