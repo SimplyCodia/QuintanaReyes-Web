@@ -26,6 +26,8 @@ export interface ClienteDetalle extends Cliente {
 export enum Rol {
   ADMIN = 'ADMIN',
   ABOGADO = 'ABOGADO',
+  ASISTENTE = 'ASISTENTE',
+  LIMITED = 'LIMITED',
 }
 
 export enum TipoCaso {

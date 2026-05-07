@@ -79,6 +79,6 @@ describe('BASE_URL', () => {
   });
 
   it('equals the production domain', () => {
-    expect(BASE_URL).toBe('https://quintanareyes.com');
+    expect(BASE_URL).toBe('https://quintanareyesabogados.com');
   });
 });

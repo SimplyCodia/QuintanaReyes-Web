@@ -1,7 +1,7 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { Suspense, useEffect } from 'react';
 import { useAuth } from '@/lib/admin/auth';
 import { LoginPage } from '@/components/admin/LoginPage';
 import { Sidebar } from '@/components/admin/Sidebar';
@@ -24,9 +24,16 @@ function DetalleContent() {
 }
 
 export default function AdminClienteDetallePage() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, isLimited, loading } = useAuth();
+  const router = useRouter();
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading && isAuthenticated && isLimited) {
+      router.replace('/admin/solicitudes');
+    }
+  }, [loading, isAuthenticated, isLimited, router]);
+
+  if (loading || (isAuthenticated && isLimited)) {
     return (
       <div className="min-h-screen bg-[#FAFAF7] flex items-center justify-center">
         <p className="text-[#6B6B6B]">Cargando...</p>

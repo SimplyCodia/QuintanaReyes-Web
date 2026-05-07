@@ -51,7 +51,7 @@ function PrivacyPolicyES() {
         En Quintana Reyes &amp; Asociados valoramos y respetamos la privacidad de nuestros usuarios y clientes.
         La presente Política de Privacidad tiene por objeto informarle de manera clara y transparente sobre cómo
         recopilamos, utilizamos, almacenamos y protegemos sus datos personales a través de nuestro sitio web
-        quintanareyes.com, en cumplimiento de la Ley 81 de 26 de marzo de 2019 sobre Protección de Datos Personales
+        quintanareyesabogados.com, en cumplimiento de la Ley 81 de 26 de marzo de 2019 sobre Protección de Datos Personales
         de la República de Panamá y su reglamentación mediante el Decreto Ejecutivo 285 de 28 de mayo de 2021.
       </P>
       <P>
@@ -64,7 +64,7 @@ function PrivacyPolicyES() {
       <UL>
         <li><strong>Razón social:</strong> Quintana Reyes &amp; Asociados</li>
         <li><strong>Domicilio:</strong> PH Twist Tower, Piso 27, Oficina 27H, Obarrio, Ciudad de Panamá, República de Panamá</li>
-        <li><strong>Correo electrónico:</strong> info@quintanareyes.com</li>
+        <li><strong>Correo electrónico:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Teléfonos:</strong> +507 6281-0554 / +507 6606-9100</li>
       </UL>
 
@@ -116,7 +116,7 @@ function PrivacyPolicyES() {
         <li><strong>Derecho de Portabilidad:</strong> Solicitar la entrega de sus datos personales en un formato estructurado, de uso común y lectura mecánica.</li>
       </UL>
       <P>
-        Para ejercer cualquiera de estos derechos, envíe una solicitud a <strong>info@quintanareyes.com</strong> indicando
+        Para ejercer cualquiera de estos derechos, envíe una solicitud a <strong>info@quintanareyesabogados.com</strong> indicando
         su nombre completo, el derecho que desea ejercer, una descripción de su solicitud y copia de un documento
         de identidad. Las actuaciones serán gratuitas conforme a la Ley 81 de 2019.
       </P>
@@ -168,7 +168,7 @@ function PrivacyPolicyES() {
       <H2>11. Contacto</H2>
       <P>Para preguntas o solicitudes relacionadas con esta Política de Privacidad:</P>
       <UL>
-        <li><strong>Correo electrónico:</strong> info@quintanareyes.com</li>
+        <li><strong>Correo electrónico:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Teléfonos:</strong> +507 6281-0554 / +507 6606-9100</li>
         <li><strong>Dirección:</strong> PH Twist Tower, Piso 27, Oficina 27H, Obarrio, Ciudad de Panamá</li>
       </UL>
@@ -182,7 +182,7 @@ function PrivacyPolicyEN() {
       <P>
         At Quintana Reyes &amp; Asociados, we value and respect the privacy of our users and clients. This Privacy
         Policy aims to inform you clearly and transparently about how we collect, use, store, and protect your
-        personal data through our website quintanareyes.com, in compliance with Law 81 of March 26, 2019, on
+        personal data through our website quintanareyesabogados.com, in compliance with Law 81 of March 26, 2019, on
         Personal Data Protection of the Republic of Panama and its regulations under Executive Decree 285 of May 28, 2021.
       </P>
       <P>
@@ -195,7 +195,7 @@ function PrivacyPolicyEN() {
       <UL>
         <li><strong>Entity:</strong> Quintana Reyes &amp; Asociados</li>
         <li><strong>Address:</strong> PH Twist Tower, 27th Floor, Office 27H, Obarrio, Panama City, Republic of Panama</li>
-        <li><strong>Email:</strong> info@quintanareyes.com</li>
+        <li><strong>Email:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Phone:</strong> +507 6281-0554 / +507 6606-9100</li>
       </UL>
 
@@ -235,7 +235,7 @@ function PrivacyPolicyEN() {
         <li><strong>Opposition:</strong> Object to the processing of your personal data or revoke previously given consent.</li>
         <li><strong>Portability:</strong> Request delivery of your personal data in a structured, commonly used format.</li>
       </UL>
-      <P>To exercise any of these rights, send a request to <strong>info@quintanareyes.com</strong>.</P>
+      <P>To exercise any of these rights, send a request to <strong>info@quintanareyesabogados.com</strong>.</P>
 
       <H2>6. Data Security</H2>
       <UL>
@@ -262,7 +262,7 @@ function PrivacyPolicyEN() {
 
       <H2>11. Contact</H2>
       <UL>
-        <li><strong>Email:</strong> info@quintanareyes.com</li>
+        <li><strong>Email:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Phone:</strong> +507 6281-0554 / +507 6606-9100</li>
         <li><strong>Address:</strong> PH Twist Tower, 27th Floor, Office 27H, Obarrio, Panama City</li>
       </UL>

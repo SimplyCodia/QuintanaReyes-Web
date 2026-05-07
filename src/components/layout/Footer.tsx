@@ -148,10 +148,10 @@ export function Footer({ locale }: FooterProps) {
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-[#C9A449] flex-shrink-0" />
                 <a
-                  href="mailto:info@quintanareyes.com"
+                  href="mailto:info@quintanareyesabogados.com"
                   className="font-sans text-sm text-white/60 hover:text-[#C9A449] transition-colors duration-200"
                 >
-                  info@quintanareyes.com
+                  info@quintanareyesabogados.com
                 </a>
               </li>
               <li className="flex items-start gap-3">

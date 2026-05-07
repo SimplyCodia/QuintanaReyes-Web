@@ -17,6 +17,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isLimited: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -64,6 +65,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
         logout,
         isAuthenticated: !!user,
         isAdmin: user?.rol === Rol.ADMIN,
+        isLimited: user?.rol === Rol.LIMITED,
       }}
     >
       {children}

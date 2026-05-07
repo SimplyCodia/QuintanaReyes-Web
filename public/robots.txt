@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://quintanareyes.com/sitemap.xml
+Sitemap: https://quintanareyesabogados.com/sitemap.xml

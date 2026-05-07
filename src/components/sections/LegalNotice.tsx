@@ -48,19 +48,19 @@ function LegalNoticeES() {
   return (
     <Wrapper eyebrow="Legal" title="Aviso Legal">
       <H2>1. Identificación del Titular del Sitio Web</H2>
-      <P>El presente sitio web, accesible a través del dominio quintanareyes.com, es propiedad y está operado por:</P>
+      <P>El presente sitio web, accesible a través del dominio quintanareyesabogados.com, es propiedad y está operado por:</P>
       <UL>
         <li><strong>Denominación:</strong> Quintana Reyes &amp; Asociados</li>
         <li><strong>Actividad:</strong> Despacho de abogados / Firma de servicios legales</li>
         <li><strong>Domicilio:</strong> PH Twist Tower, Piso 27, Oficina 27H, Obarrio, Ciudad de Panamá, República de Panamá</li>
-        <li><strong>Correo electrónico:</strong> info@quintanareyes.com</li>
+        <li><strong>Correo electrónico:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Teléfonos:</strong> +507 6281-0554 / +507 6606-9100</li>
-        <li><strong>Sitio web:</strong> quintanareyes.com</li>
+        <li><strong>Sitio web:</strong> quintanareyesabogados.com</li>
       </UL>
 
       <H2>2. Objeto del Sitio Web</H2>
       <P>
-        El sitio web quintanareyes.com tiene como finalidad proporcionar información general sobre Quintana Reyes &amp;
+        El sitio web quintanareyesabogados.com tiene como finalidad proporcionar información general sobre Quintana Reyes &amp;
         Asociados, sus áreas de práctica, su equipo profesional y sus datos de contacto, así como facilitar un medio de
         comunicación inicial con personas interesadas en nuestros servicios legales a través de un formulario de contacto.
       </P>
@@ -72,7 +72,7 @@ function LegalNoticeES() {
         NATURALEZA.</strong>
       </P>
       <P>
-        La información publicada en quintanareyes.com, incluyendo artículos, descripciones de áreas de práctica,
+        La información publicada en quintanareyesabogados.com, incluyendo artículos, descripciones de áreas de práctica,
         publicaciones y cualquier otro contenido, no constituye ni pretende constituir una opinión legal, una
         recomendación profesional ni la creación de una relación abogado-cliente.
       </P>
@@ -155,7 +155,7 @@ function LegalNoticeES() {
 
       <H2>12. Contacto</H2>
       <UL>
-        <li><strong>Correo electrónico:</strong> info@quintanareyes.com</li>
+        <li><strong>Correo electrónico:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Teléfonos:</strong> +507 6281-0554 / +507 6606-9100</li>
         <li><strong>Dirección:</strong> PH Twist Tower, Piso 27, Oficina 27H, Obarrio, Ciudad de Panamá</li>
       </UL>
@@ -167,19 +167,19 @@ function LegalNoticeEN() {
   return (
     <Wrapper eyebrow="Legal" title="Legal Notice">
       <H2>1. Website Owner Identification</H2>
-      <P>This website, accessible at quintanareyes.com, is owned and operated by:</P>
+      <P>This website, accessible at quintanareyesabogados.com, is owned and operated by:</P>
       <UL>
         <li><strong>Entity:</strong> Quintana Reyes &amp; Asociados</li>
         <li><strong>Activity:</strong> Law firm / Legal services</li>
         <li><strong>Address:</strong> PH Twist Tower, 27th Floor, Office 27H, Obarrio, Panama City, Republic of Panama</li>
-        <li><strong>Email:</strong> info@quintanareyes.com</li>
+        <li><strong>Email:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Phone:</strong> +507 6281-0554 / +507 6606-9100</li>
-        <li><strong>Website:</strong> quintanareyes.com</li>
+        <li><strong>Website:</strong> quintanareyesabogados.com</li>
       </UL>
 
       <H2>2. Purpose of the Website</H2>
       <P>
-        The website quintanareyes.com is intended to provide general information about Quintana Reyes &amp; Asociados,
+        The website quintanareyesabogados.com is intended to provide general information about Quintana Reyes &amp; Asociados,
         its practice areas, professional team, and contact information, as well as to facilitate initial communication
         with individuals interested in our legal services through a contact form.
       </P>
@@ -190,7 +190,7 @@ function LegalNoticeEN() {
         BE CONSTRUED AS LEGAL, TAX, OR PROFESSIONAL ADVICE OF ANY KIND.</strong>
       </P>
       <P>
-        The information published on quintanareyes.com, including articles, practice area descriptions, publications,
+        The information published on quintanareyesabogados.com, including articles, practice area descriptions, publications,
         and any other content, does not constitute a legal opinion, professional recommendation, or the creation of an
         attorney-client relationship.
       </P>
@@ -260,7 +260,7 @@ function LegalNoticeEN() {
 
       <H2>12. Contact</H2>
       <UL>
-        <li><strong>Email:</strong> info@quintanareyes.com</li>
+        <li><strong>Email:</strong> info@quintanareyesabogados.com</li>
         <li><strong>Phone:</strong> +507 6281-0554 / +507 6606-9100</li>
         <li><strong>Address:</strong> PH Twist Tower, 27th Floor, Office 27H, Obarrio, Panama City</li>
       </UL>

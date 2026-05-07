@@ -118,7 +118,7 @@ describe('Footer', () => {
 
     it('renders email address', () => {
       render(<Footer locale="es" />);
-      expect(screen.getByText('info@quintanareyes.com')).toBeInTheDocument();
+      expect(screen.getByText('info@quintanareyesabogados.com')).toBeInTheDocument();
     });
 
     it('renders location in Spanish when locale is es', () => {
@@ -151,8 +151,8 @@ describe('Footer', () => {
 
     it('email link has correct mailto href', () => {
       render(<Footer locale="es" />);
-      const emailLink = screen.getByText('info@quintanareyes.com').closest('a');
-      expect(emailLink).toHaveAttribute('href', 'mailto:info@quintanareyes.com');
+      const emailLink = screen.getByText('info@quintanareyesabogados.com').closest('a');
+      expect(emailLink).toHaveAttribute('href', 'mailto:info@quintanareyesabogados.com');
     });
   });
 

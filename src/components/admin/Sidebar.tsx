@@ -33,17 +33,17 @@ interface NavItem {
   label: string;
   href: string;
   icon: React.ElementType;
-  adminOnly?: boolean;
+  roles?: string[];
 }
 
 const navItems: NavItem[] = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { label: 'Solicitudes', href: '/admin/solicitudes', icon: FileText },
-  { label: 'Clientes', href: '/admin/clientes', icon: Contact },
+  { label: 'Clientes', href: '/admin/clientes', icon: Contact, roles: ['ADMIN', 'ABOGADO', 'ASISTENTE'] },
   { label: 'Blog', href: '/admin/blog', icon: Newspaper },
-  { label: 'Usuarios', href: '/admin/usuarios', icon: Users, adminOnly: true },
-  { label: 'Auditoría', href: '/admin/auditoria', icon: Shield, adminOnly: true },
-  { label: 'Configuración', href: '/admin/configuracion', icon: Settings, adminOnly: true },
+  { label: 'Usuarios', href: '/admin/usuarios', icon: Users, roles: ['ADMIN'] },
+  { label: 'Auditoría', href: '/admin/auditoria', icon: Shield, roles: ['ADMIN'] },
+  { label: 'Configuración', href: '/admin/configuracion', icon: Settings, roles: ['ADMIN'] },
 ];
 
 const DRAWER_WIDTH = 256;
@@ -57,7 +57,7 @@ export function Sidebar() {
     return pathname.startsWith(href);
   };
 
-  const visibleItems = navItems.filter((item) => !item.adminOnly || isAdmin);
+  const visibleItems = navItems.filter((item) => !item.roles || item.roles.includes(user?.rol ?? ''));
 
   return (
     <Drawer
@@ -180,7 +180,7 @@ export function Sidebar() {
           </ListItemIcon>
           <ListItemText
             primary={user?.nombre ?? 'Usuario'}
-            secondary={user?.rol === 'ADMIN' ? 'Administrador' : 'Abogado'}
+            secondary={user?.rol === 'ADMIN' ? 'Administrador' : user?.rol === 'ASISTENTE' ? 'Asistente' : user?.rol === 'LIMITED' ? 'Limitado' : 'Abogado'}
             sx={{
               '& .MuiListItemText-primary': { fontSize: '0.8rem', fontWeight: 600 },
               '& .MuiListItemText-secondary': { fontSize: '0.65rem' },

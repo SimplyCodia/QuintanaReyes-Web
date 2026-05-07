@@ -1,6 +1,6 @@
 export const contactInfo = {
   phone: '+507 6000-0000',
-  email: 'info@quintanareyes.com',
+  email: 'info@quintanareyesabogados.com',
   address: {
     es: 'Obarrio, Ciudad de Panamá, Panamá',
     en: 'Obarrio, Panama City, Panama',

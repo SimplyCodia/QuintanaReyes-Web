@@ -339,10 +339,10 @@ export function ContactSection({ locale }: ContactSectionProps) {
                     {t(locale, 'Correo electrónico', 'Email')}
                   </p>
                   <a
-                    href="mailto:info@quintanareyes.com"
+                    href="mailto:info@quintanareyesabogados.com"
                     className="font-sans text-sm text-[#1C1C1C] hover:text-[#C9A449] transition-colors"
                   >
-                    info@quintanareyes.com
+                    info@quintanareyesabogados.com
                   </a>
                 </div>
               </div>

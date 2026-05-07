@@ -61,4 +61,4 @@ export const seoData = {
   },
 };
 
-export const BASE_URL = 'https://quintanareyes.com';
+export const BASE_URL = 'https://quintanareyesabogados.com';
